@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "category": "Javaの基本",
+    "question": "Javaプログラムの実行エントリーポイントとなるメソッドの宣言として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "public void main(String[] args)",
+      "public static void main(String args)",
+      "public static void main(String[] args)",
+      "static void main(String[] args)"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaプログラムの起動時（エントリーポイント）には、`public static void main(String[] args)` メソッドが必要です。アクセス修飾子は `public`、静的メソッドを示す `static`、戻り値なしを示す `void`、そして引数としてString配列 `String[] args`（または可変長引数）を受け取る必要があります。"
+  },
+  {
+    "id": 2,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 10;\nint b = a++;\nSystem.out.println(\"a:\" + a + \", b:\" + b);",
+    "options": [
+      "a:10, b:10",
+      "a:11, b:10",
+      "a:11, b:11",
+      "a:10, b:11"
+    ],
+    "answerIndex": 1,
+    "explanation": "後置インクリメント演算子（`a++`）は、現在の `a` の値（10）を評価し、変数 `b` に代入した後に、`a` の値を 1 増やします。したがって、`b` には 10 が代入され、その後 `a` は 11 になります。結果として `a:11, b:10` が出力されます。"
+  },
+  {
+    "id": 3,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int x = 5;\nswitch(x) {\n    case 5:\n        System.out.print(\"5 \");\n    case 10:\n        System.out.print(\"10 \");\n        break;\n    default:\n        System.out.print(\"default\");\n}",
+    "options": [
+      "5 ",
+      "5 10 ",
+      "5 10 default",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`x` の値は 5 なので、`case 5:` が実行されます。しかし、`case 5:` には `break` 文が記述されていないため、次の `case 10:` の処理も続けて実行されます（フォールスルー）。`case 10:` の最後には `break` 文があるため、そこで switch 文を抜けます。したがって、出力結果は `5 10 ` となります。"
+  },
+  {
+    "id": 4,
+    "category": "配列の操作",
+    "question": "次の配列宣言および初期化のうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "int[] array = new int[3];",
+      "int[] array = {1, 2, 3};",
+      "int[] array = new int[] {1, 2, 3};",
+      "int[3] array = new int[3];"
+    ],
+    "answerIndex": 3,
+    "explanation": "Javaでは、配列の宣言時（左辺）に変数の型宣言としてサイズ（要素数）を指定することはできません。サイズは配列のインスタンス化時（右辺の `new int[3]` など）に指定します。そのため、`int[3] array` という宣言はコンパイルエラーになります。"
+  },
+  {
+    "id": 5,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Sample {\n    int val = 10;\n    void change(int val) {\n        val = 20;\n    }\n}\n// 実行部\nSample s = new Sample();\ns.change(50);\nSystem.out.println(s.val);",
+    "options": [
+      "10",
+      "20",
+      "50",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "`change` メソッド内で `val = 20;` と代入していますが、これはメソッドの引数（ローカル変数）である `val` の値を書き換えているだけであり、インスタンスフィールドである `this.val` の値には影響を与えません。したがって、インスタンスメンバー `s.val` は初期値の 10 のまま変わりません。"
+  },
+  {
+    "id": 6,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Parent {\n    void show() {\n        System.out.println(\"Parent\");\n    }\n}\nclass Child extends Parent {\n    void show() {\n        System.out.println(\"Child\");\n    }\n}\n// 実行部\nParent p = new Child();\np.show();",
+    "options": [
+      "Parent",
+      "Child",
+      "コンパイルエラーが発生する",
+      "実行時例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "変数 `p` の宣言型は `Parent` ですが、参照している実際のインスタンスは `Child` クラスのオブジェクトです。Javaでは、メソッドが呼び出された際、オブジェクトの実際の型（ランタイム型）に基づいてオーバーライドされたメソッドが動的に決定され、実行されます（ポリモーフィズム）。したがって、`Child` クラスでオーバーライドされた `show()` メソッドが実行され、出力は `Child` となります。"
+  }
+]
