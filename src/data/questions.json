@@ -1062,5 +1062,1741 @@
     ],
     "answerIndex": 1,
     "explanation": "インターフェースのメソッドは暗黙的に `public` です。オーバーライドする際、子クラスでは親と同じかより広い修飾子にする必要がありますが、`public` を省略するとアクセス制限が厳しくなってしまうためコンパイルエラーになります。"
+  },
+  {
+    "id": 77,
+    "category": "Javaの基本",
+    "question": "次のうち、Javaの識別子（クラス名、変数名、メソッド名など）として「使用可能」なものはどれですか。",
+    "code": "",
+    "options": [
+      "1stValue",
+      "_total$Amount",
+      "super",
+      "value-count"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaの識別子は、文字、アンダースコア（_）、通貨記号（$など）で始めることができますが、数字（1stValue）で始めることはできません。また、予約語（super）やハイフン（value-count）などの記号を含むこともできません。よって「_total$Amount」が使用可能です。"
+  },
+  {
+    "id": 78,
+    "category": "Javaの基本",
+    "question": "次の main メソッドの宣言のうち、エントリーポイントとして正しく認識されるものはどれですか。",
+    "code": "",
+    "options": [
+      "public static void main(String args)",
+      "public void static main(String[] args)",
+      "public static void main(String... args)",
+      "static public int main(String[] args)"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaのエントリーポイントとなる main メソッドは、戻り値が `void` であり、引数として String配列 または Stringの可変長引数（`String... args`）を受け取る必要があります。また、修飾子の順序は `public static` でも `static public` でも認識されますが、戻り値型は必ず `void` である必要があります。"
+  },
+  {
+    "id": 79,
+    "category": "Javaの基本",
+    "question": "package宣言およびimport宣言に関する記述のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "package宣言はソースファイル内の任意の位置に記述できる。",
+      "1つのソースファイル内に複数のpackage宣言を記述することができる。",
+      "import宣言はpackage宣言よりも前に記述しなければならない。",
+      "package宣言はソースファイルの先頭（コメントを除く）に1つだけ記述できる。"
+    ],
+    "answerIndex": 3,
+    "explanation": "package宣言は、ソースファイル内のクラスやインターフェースが属するパッケージを指定するものであり、コメントを除いてソースファイルの先頭に「1つだけ」記述することができます。複数のpackage宣言や、import宣言の後に記述することはできません。"
+  },
+  {
+    "id": 80,
+    "category": "Javaの基本",
+    "question": "次のインポート宣言に関する記述のうち、正しいものはどれですか。",
+    "code": "import java.util.*;",
+    "options": [
+      "java.util パッケージの直下にあるクラスと、そのサブパッケージ（java.util.concurrentなど）直下のクラスがすべてインポートされる。",
+      "java.util パッケージの直下にあるクラスのみがインポートされ、サブパッケージのクラスはインポートされない。",
+      "java.util パッケージだけでなく、java.lang などの他の基本パッケージも一括でインポートされる。",
+      "コンパイルエラーになる。アスタリスク（*）は特定のクラス名と併用しなければならない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "オンデマンドインポート（`*`）は、指定したパッケージ直下のクラスのみを対象とし、その下のサブパッケージに含まれるクラスまでは自動的にインポートしません。サブパッケージのクラスを使用する場合は、明示的に `import java.util.concurrent.*;` のように宣言する必要があります。"
+  },
+  {
+    "id": 81,
+    "category": "Javaの基本",
+    "question": "次のコードのうち、JavaのJavadocコメントとしてコンパイラおよびツールに認識されるものはどれですか。",
+    "code": "",
+    "options": [
+      "// This is a comment",
+      "/* This is a comment */",
+      "/** This is a comment */",
+      "/*# This is a comment */"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaのドキュメンテーションコメント（Javadoc）は、`/**` で始まり、`*/` で終わる形式で記述します。`//` は単一文コメント、`/* ... */` は複数行コメントです。"
+  },
+  {
+    "id": 82,
+    "category": "Javaの基本",
+    "question": "ソースファイル内に「publicクラス」を記述する場合の規則として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "1つのソースファイル内に、複数のpublicクラスを記述できる。",
+      "ソースファイル名とpublicクラスの名前は、大文字小文字を区別せず一致していればよい。",
+      "1つのソースファイル内に記述できるpublicクラスは最大1つであり、その名前はソースファイル名と大文字小文字を含めて完全に一致しなければならない。",
+      "ソースファイル内にpublicクラスがなくても、ファイル名はクラス名のいずれかと一致しなければならない。"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaでは、1つのソースファイル内に定義できる `public` 修飾子が付いたクラスは「最大1つ」です。また、その `public` クラス名は、ソースファイルの名前（拡張子 `.java` を除く）と大文字小文字を含めて完全に一致しなければなりません。"
+  },
+  {
+    "id": 83,
+    "category": "Javaの基本",
+    "question": "次のキーワードのうち、Javaの予約語（キーワード）ではないものはどれですか。",
+    "code": "",
+    "options": [
+      "const",
+      "goto",
+      "null",
+      "strictfp"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaにおいて `const` や `goto` は使用されていませんが「予約語」として登録されています。`strictfp` も予約語です。一方、`null` はリテラル（nullリテラル）であり、予約語（キーワード）としては扱われません（ただし、識別子として使用することはできません）。"
+  },
+  {
+    "id": 84,
+    "category": "Javaの基本",
+    "question": "Javaで自動的にインポートされ、import宣言なしで使用できるパッケージはどれですか。",
+    "code": "",
+    "options": [
+      "java.util",
+      "java.io",
+      "java.lang",
+      "java.net"
+    ],
+    "answerIndex": 2,
+    "explanation": "`java.lang` パッケージに含まれるクラス（`System`, `String`, `Integer` など）は、Javaプログラムにおいて極めて頻繁に使用されるため、コンパイラによって暗黙的に自動インポートされます。その他のパッケージは明示的な `import` 宣言が必要です。"
+  },
+  {
+    "id": 85,
+    "category": "Javaの基本",
+    "question": "クラス `Sample` を定義した `Sample.java` ファイルをコンパイルし、実行するコマンドの組み合わせとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "javac Sample.java と java Sample.class",
+      "javac Sample.java と java Sample",
+      "java Sample.java と javac Sample",
+      "javac Sample と java Sample"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaプログラムをコンパイルする際は `javac ファイル名.java` のようにソースファイル名を指定します。コンパイルによって生成されたクラスファイルを実行する際は `java クラス名` のようにクラス名（拡張子なし）を指定します。"
+  },
+  {
+    "id": 86,
+    "category": "Javaの基本",
+    "question": "最上位クラス（トップレベルクラス）の宣言において、指定できるアクセス修飾子の組み合わせとして正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "public、protected、private、なし（パッケージプライベート）の4種類すべて",
+      "public と なし（パッケージプライベート）のみ",
+      "public、protected、なし（パッケージプライベート）の3種類",
+      "public のみ"
+    ],
+    "answerIndex": 1,
+    "explanation": "ソースファイルの直下に記述される最上位クラス（トップレベルクラス）に対して指定できるアクセス修飾子は、`public` と「修飾子なし（パッケージプライベート）」の2種類のみです。`protected` や `private` を指定できるのは、クラスのメンバー（内部クラスやメソッド、フィールド）のみです。"
+  },
+  {
+    "id": 87,
+    "category": "Javaの基本",
+    "question": "Javaの識別子における大文字と小文字の区別に関する説明として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "Javaは大文字と小文字を区別するため、「Value」と「value」は異なる識別子として扱われる。",
+      "Javaは大文字と小文字を区別しないため、「Value」と「value」は同じ識別子とみなされる。",
+      "クラス名は大文字小文字を区別するが、変数名やメソッド名は区別しない。",
+      "コンパイル時のみ区別され、実行時は区別されない。"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaは完全に大文字と小文字を区別（case-sensitive）します。したがって、「Value」と「value」は全く異なる変数やクラスとして認識され、同居することも可能です。"
+  },
+  {
+    "id": 88,
+    "category": "Javaの基本",
+    "question": "次の2つのパッケージに同じ名前のクラス `Date` が存在します。「java.util.Date」と「java.sql.Date」です。あるプログラムで両方のパッケージをオンデマンドインポート（*）した場合、どのような挙動になりますか。",
+    "code": "import java.util.*;\nimport java.sql.*;\n// クラス内で使用\nDate d = new Date();",
+    "options": [
+      "java.util.Date が優先して使用される。",
+      "java.sql.Date が優先して使用される。",
+      "どの Date クラスを指すか曖昧であるため、コンパイルエラーが発生する。",
+      "コンパイルは通るが、実行時に例外が発生する。"
+    ],
+    "answerIndex": 2,
+    "explanation": "同じ単純名を持つ複数のクラスが属するパッケージをオンデマンドインポートした場合、そのクラス名（`Date`）を単独で使用すると、コンパイラはどちらのクラスを指しているか判断できず「曖昧（ambiguous）」としてコンパイルエラーを発生させます。これを解決するには、完全修飾名で記述するか、特定のクラスを明示的にインポートする必要があります。"
+  },
+  {
+    "id": 89,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの挙動として、正しいものはどれですか。",
+    "code": "int a;\nSystem.out.println(a);",
+    "options": [
+      "0 が出力される",
+      "null が出力される",
+      "コンパイルエラーが発生する",
+      "実行時に NullPointerException が発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaにおいて、メソッド内で宣言されるローカル変数は自動的に初期化されません。初期化されていないローカル変数を参照（読み取り）しようとすると、コンパイルエラーになります。（クラスのフィールドであればデフォルト値で自動初期化されます）"
+  },
+  {
+    "id": 90,
+    "category": "データの操作",
+    "question": "次の宣言および初期化のうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "double d = 10;",
+      "double d = 10.5f;",
+      "float f = 10.5;",
+      "float f = 10.5f;"
+    ],
+    "answerIndex": 2,
+    "explanation": "小数点以下を含む数値リテラル（例: `10.5`）は、デフォルトで `double` 型（64ビット）とみなされます。これをサイズが小さい `float` 型（32ビット）の変数に代入しようとすると、精度が失われる可能性があるためコンパイルエラーになります。代入するには `10.5f` や `10.5F` のようにサフィックスを付与して明示的に float 型として定義する必要があります。"
+  },
+  {
+    "id": 91,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "byte a = 10;\nbyte b = 20;\n// byte c = a + b; // この行を実行しようとする\nSystem.out.println(a + b);",
+    "options": [
+      "30",
+      "コンパイルエラーが発生する",
+      "オーバーフローにより負の値が出力される",
+      "実行時に算術例外が発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaにおいて、`byte`, `short`, `char` 型の演算は、計算前に自動的に `int` 型に昇格（プロモーション）されてから行われます。そのため、`a + b` の結果自体は `int` 型になります。これを `System.out.println(a + b);` で出力することは `int` 値として問題なく行えますが、もしコメント部分のように `byte c = a + b;` としようとすると、`int` から `byte` への縮小変換となるためキャストを行わないとコンパイルエラーになります。"
+  },
+  {
+    "id": 92,
+    "category": "データの操作",
+    "question": "文字型 `char` に関する記述のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "char 型は Unicode 文字を表現するためのもので、内部的には 16ビットの符号なし整数として扱われる。",
+      "char 型には負の数値を直接代入することができる。",
+      "char 型は 8ビットの文字コード（ASCIIなど）を表現するためのデータ型である。",
+      "char a = \"A\"; という初期化は正しい。"
+    ],
+    "answerIndex": 0,
+    "explanation": "char型は16ビット符号なし整数（0〜65535）であり、Unicode文字を保持します。負の値を代入しようとするとコンパイルエラーになります。また、文字リテラルはシングルクォーテーション（'A'）で囲む必要があり、ダブルクォーテーション（\"A\"）はString型とみなされるためエラーになります。"
+  },
+  {
+    "id": 93,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 5;\nboolean b = false;\nif (b && (++a > 5)) {\n    a += 10;\n}\nSystem.out.println(a);",
+    "options": [
+      "5",
+      "6",
+      "15",
+      "16"
+    ],
+    "answerIndex": 0,
+    "explanation": "短絡評価（ショートカット評価）演算子 `&&` は、左辺が `false` である場合、右辺の評価を行わずに式全体の結果を `false` と判定します。このコードでは、左辺の `b` が `false` であるため、右辺の `++a > 5` は実行（評価）されません。よってインクリメントは行われず、`a` の値は初期値の「5」のままとなります。"
+  },
+  {
+    "id": 94,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "String s1 = \"hello\";\nString s2 = new String(\"hello\");\nSystem.out.println((s1 == s2) + \" \" + (s1.equals(s2)));",
+    "options": [
+      "true true",
+      "true false",
+      "false true",
+      "false false"
+    ],
+    "answerIndex": 2,
+    "explanation": "文字列リテラルで定義された `s1` は定数プール内のインスタンスを参照しますが、`new String(...)` を用いて作成された `s2` はヒープ領域に新しいオブジェクトを作成します。`==` 演算子は参照（メモリアドレス）を比較するため `s1 == s2` は `false` となります。一方、`equals()` メソッドは文字列のコンテンツ（文字データの内容）を比較するため `true` となります。"
+  },
+  {
+    "id": 95,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 10;\nint b = a++ + ++a;\nSystem.out.println(\"a:\" + a + \" b:\" + b);",
+    "options": [
+      "a:12 b:22",
+      "a:12 b:20",
+      "a:11 b:21",
+      "a:11 b:22"
+    ],
+    "answerIndex": 0,
+    "explanation": "演算は左から右へ評価されます。まず `a++` は、現在の `a` の値である 10 を評価に使います。この評価の直後に `a` は 11 に増加します。次に `++a` が評価されますが、この時点で `a` はすでに 11 になっているので、前置インクリメントにより `a` は 12 になり、その値である 12 が評価に使われます。最終的に `b` の計算は `10 + 12 = 22` となり、`a` は 12 になります。"
+  },
+  {
+    "id": 96,
+    "category": "データの操作",
+    "question": "参照型変数と `null` に関する記述のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "null 同士の比較 (null == null) はコンパイルエラーになる。",
+      "null 同士を「==」演算子で比較した場合、結果は true になる。",
+      "null が代入された変数に対して equals() メソッドを呼び出すと false が返る。",
+      "基本データ型（intなど）の変数に null を代入することができる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおいて、`null` 同士を `==` 演算子で比較すると、結果は `true` になります。また、`null` が入っている変数からメソッド（`equals()` など）を呼び出すと、実行時に `NullPointerException` が発生します。基本データ型に `null` を代入することはできません。"
+  },
+  {
+    "id": 97,
+    "category": "データの操作",
+    "question": "オートボクシング（Autoboxing）に関する説明として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "基本データ型の値を、対応するラッパークラスのオブジェクトに自動変換する機能。",
+      "ラッパークラスのオブジェクトを、対応する基本データ型の値に自動変換する機能。",
+      "コンパイル時に、すべての数値を double 型に自動キャストする機能。",
+      "文字列を数値に自動変換する機能。"
+    ],
+    "answerIndex": 0,
+    "explanation": "基本データ型の値（`int` など）を、対応するラッパークラスのオブジェクト（`Integer` など）に自動的に変換する機能を「オートボクシング」と呼びます。その逆の自動変換（ラッパーから基本型）は「アンボクシング」と呼びます。"
+  },
+  {
+    "id": 98,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 10;\na += 5.5;\nSystem.out.println(a);",
+    "options": [
+      "15.5",
+      "15",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "複合代入演算子（`+=`, `-=` など）は、右辺の式を評価した後に、暗黙的に左辺の型へキャスト（縮小変換）を行います。つまり、`a += 5.5` は内部的に `a = (int)(a + 5.5)` と等価であり、`10 + 5.5 = 15.5` を `int` にキャストした結果の `15` が `a` に代入されます。コンパイルエラーは発生しません。"
+  },
+  {
+    "id": 99,
+    "category": "データの操作",
+    "question": "final修飾子が付与されたローカル変数に関するルールとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "宣言と同時に必ず初期化しなければならない。",
+      "一度だけ初期化が可能で、その後は値の変更（再代入）が禁止される。",
+      "値の変更は可能だが、インスタンスの型を変更することができない。",
+      "メソッドの引数として渡すことができなくなる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "`final` 変数は、必ずしも宣言と同時に初期化する必要はありません（遅延初期化が可能）。ただし、一度値を代入（初期化）すると、それ以降の再代入は一切禁止され、試みるとコンパイルエラーになります。"
+  },
+  {
+    "id": 100,
+    "category": "データの操作",
+    "question": "次の式を実行したときの、変数 `result` の型として正しいものはどれですか。",
+    "code": "int a = 10;\ndouble b = 3.5;\nfloat c = 2.0f;\nvar result = a * b / c;",
+    "options": [
+      "int",
+      "float",
+      "double",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaにおける異種混合演算（プロモーション規則）では、式の中に `double` 型が含まれる場合、他のオペランドも `double` に昇格してから計算が行われます。この式では `int * double` で結果は `double` になり、さらにそれを `float` で割る際も `double / double` として演算が行われるため、結果の型は `double` となります。"
+  },
+  {
+    "id": 101,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "System.out.println(1.0 / 0.0);",
+    "options": [
+      "Infinity",
+      "NaN",
+      "実行時に ArithmeticException が発生する",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaでは、整数型のゼロ除算（例: `1 / 0`）を行うと実行時に `ArithmeticException` が発生しますが、浮動小数点数（`double` や `float`）におけるゼロ除算（`1.0 / 0.0`）は、数学的定義に従って `Infinity`（正の無限大）または `-Infinity` となり、例外は発生しません。"
+  },
+  {
+    "id": 102,
+    "category": "データの操作",
+    "question": "次の数値リテラルのうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "int a = 1_000_000;",
+      "double d = 3.1_415;",
+      "int b = _100;",
+      "long l = 100_L;"
+    ],
+    "answerIndex": 2,
+    "explanation": "Java 7以降、数値リテラルの読みやすさを向上させるためにアンダースコア（`_`）を記述できますが、以下の位置には記述できません。(1) リテラルの先頭または末尾（例: `_100` や `100_` ）、(2) 小数点の前後、(3) LやFなどの型サフィックスの直前（例: `100_L`）。`_100` は変数名（識別子）として解釈されるか、またはコンパイルエラーを引き起こします。"
+  },
+  {
+    "id": 103,
+    "category": "データの操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 010;\nint b = 0x10;\nSystem.out.println(a + \" \" + b);",
+    "options": [
+      "10 16",
+      "8 16",
+      "10 10",
+      "8 10"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaの整数リテラルにおいて、先頭に `0` を付けると「8進数」として解釈されます。そのため `010` は 10進数の `8` になります。また、先頭に `0x` または `0X` を付けると「16進数」として解釈されるため `0x10` は 10進数の `16` になります。よって出力は「8 16」です。"
+  },
+  {
+    "id": 104,
+    "category": "制御構造",
+    "question": "switch文の条件式（評価対象の式）の評価結果として、指定「できない」データ型はどれですか。",
+    "code": "",
+    "options": [
+      "char",
+      "String",
+      "long",
+      "int"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaの switch 文で条件式として指定できるのは、`byte`, `short`, `char`, `int`（およびそのラッパークラス）、`String`、および列挙型（`enum`）のみです。`long`, `float`, `double` および `boolean` 型は switch 文の評価対象として使用することはできません。"
+  },
+  {
+    "id": 105,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int val = 2;\nswitch(val) {\n    default:\n        System.out.print(\"D \");\n    case 1:\n        System.out.print(\"1 \");\n        break;\n    case 3:\n        System.out.print(\"3 \");\n}",
+    "options": [
+      "D ",
+      "D 1 ",
+      "D 1 3 ",
+      "何も出力されない"
+    ],
+    "answerIndex": 1,
+    "explanation": "`val` の値は 2 なので、一致する `case` はありません。そのため `default:` に処理が移り、「D 」が出力されます。しかし、`default:` の処理の最後に `break` が記述されていないため、下にそのまま流れて（フォールスルー） `case 1:` の処理も実行され、「1 」が出力されます。`case 1:` の最後には `break;` があるため、そこで switch 文を抜けます。よって出力は「D 1 」となります。"
+  },
+  {
+    "id": 106,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "outer: for(int i=0; i<3; i++) {\n    for(int j=0; j<3; j++) {\n        if (i == j) continue outer;\n        System.out.print(i + \"\" + j + \" \");\n    }\n}",
+    "options": [
+      "00 11 22 ",
+      "10 20 21 ",
+      "01 02 12 ",
+      "10 20 22 "
+    ],
+    "answerIndex": 1,
+    "explanation": "ラベル付き `continue`（`continue outer;`）は、指定された外側ループ（`outer`）の次のイテレーション（更新・条件判定）にジャンプします。\n- i = 0 のとき: j = 0 で i == j となり `continue outer` が実行され、i=1 へ移行。\n- i = 1 のとき: j = 0 は i != j なので「10 」が出力。j = 1 で i == j となり `continue outer` が実行され、i=2 へ移行。\n- i = 2 のとき: j = 0 は「20 」が出力。j = 1 は「21 」が出力。j = 2 で i == j となり `continue outer` が実行され、ループ終了。\nしたがって、出力結果は「10 20 21 」となります。"
+  },
+  {
+    "id": 107,
+    "category": "制御構造",
+    "question": "次のコードのうち、コンパイルエラーになる「無限ループ」の記述はどれですか。",
+    "code": "",
+    "options": [
+      "while(true) { System.out.print(\"a\"); }",
+      "for(;;) { System.out.print(\"a\"); }",
+      "do { System.out.print(\"a\"); } while(true);",
+      "while() { System.out.print(\"a\"); }"
+    ],
+    "answerIndex": 3,
+    "explanation": "while文の条件式は省略することができず、記述しないとコンパイルエラーになります。一方、for文の条件式は省略可能（`for(;;)`）で、省略された場合は自動的に `true`（無限ループ）として扱われます。したがって `while()` は文法エラーです。"
+  },
+  {
+    "id": 108,
+    "category": "制御構造",
+    "question": "do-while文に関する説明として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "条件式が最初から false の場合、ループ内の処理は一度も実行されない。",
+      "ループ内の処理が実行された後に条件式が評価されるため、最低でも1回は必ず実行される。",
+      "末尾の while(条件式) の後ろにセミコロン「;」を記述してはならない。",
+      "条件式には整数値（1など）を指定してループを制御する。"
+    ],
+    "answerIndex": 1,
+    "explanation": "do-while文は、処理ブロックを実行した「後」に条件式を判定する後判定ループです。そのため、条件式が最初から `false` であっても、ブロック内の処理が最低1回は必ず実行されます。また、末尾の `while(条件式);` のようにセミコロンが必要です。"
+  },
+  {
+    "id": 109,
+    "category": "制御構造",
+    "question": "次のforループの宣言のうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "for(int i = 0, j = 10; i < j; i++, j--)",
+      "for(int i = 0; i < 10; i++)",
+      "for(int i = 0, double d = 1.0; i < 10; i++)",
+      "int i = 0; for(; i < 10; i++)"
+    ],
+    "answerIndex": 2,
+    "explanation": "for文の初期化式（第1セクション）で複数の変数を宣言する場合、それらの変数は「すべて同一のデータ型」である必要があります。`int i = 0, double d = 1.0` のように異なる型を同時に宣言しようとするとコンパイルエラーになります。"
+  },
+  {
+    "id": 110,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[] array = {1, 2, 3};\nfor(int val : array) {\n    val = val * 2;\n}\nSystem.out.println(array[0] + \" \" + array[1]);",
+    "options": [
+      "2 4",
+      "1 2",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "拡張for文（for-each文）において、ループ制御変数 `val` には配列要素のコピーが代入されます。ループ内で `val = val * 2` と代入しても、書き換わっているのはローカル変数 `val` の値だけであり、元の配列要素 `array[0]` や `array[1]` の値は変更されません。したがって配列の中身は初期値のまま「1 2」です。"
+  },
+  {
+    "id": 111,
+    "category": "制御構造",
+    "question": "次のコードを実行したとき、どのような結果になりますか。",
+    "code": "int x = 10;\nif (x = 5) {\n    System.out.println(\"Five\");\n} else {\n    System.out.println(\"Not Five\");\n}",
+    "options": [
+      "Five が出力される",
+      "Not Five が出力される",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaの `if` 文の条件式は、評価結果が必ず `boolean` 型でなければなりません。`x = 5` は比較（`==`）ではなく「代入」式です。この式の評価値は代入された値である `int` 型の `5` になるため、`boolean` 型を要求する if 条件式に適合せず、コンパイルエラーになります。"
+  },
+  {
+    "id": 112,
+    "category": "制御構造",
+    "question": "次のコードのうち、コンパイルエラー（到達不能コード / Unreachable code）が発生するものはどれですか。",
+    "code": "",
+    "options": [
+      "int a = 10; if (a > 20) { System.out.println(\"Hi\"); }",
+      "while(false) { System.out.println(\"Hi\"); }",
+      "for(int i=0; false; i++) { System.out.println(\"Hi\"); }",
+      "2と3の両方でエラーが発生する"
+    ],
+    "answerIndex": 3,
+    "explanation": "Javaコンパイラは、コンパイル段階で絶対に実行されることのないコードブロック（到達不能コード）を検出するとコンパイルエラーにします。`while(false)` のループ内部や、条件式がリテラル `false` である `for` の内部は決して実行されないためコンパイルエラーになります。（`if(false)` は特別にデバッグ用に許容される仕様になっています）"
+  },
+  {
+    "id": 113,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int x = 5;\nSystem.out.println(x > 5 ? \"A\" : x < 5 ? \"B\" : \"C\");",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "三項演算子のネストです。まず最初の式 `x > 5` (5 > 5) は `false` なので、コロンの右側である `x < 5 ? \"A\" : ...` 側の式に進みます。次の条件 `x < 5` (5 < 5) も `false` であるため、最終コロンの右側にある `\"C\"` が評価され、出力されます。"
+  },
+  {
+    "id": 114,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int i = 0;\nfor (; i < 5; i++) {\n    if (i == 2) break;\n}\nSystem.out.println(i);",
+    "options": [
+      "2",
+      "3",
+      "5",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "ループが実行され、`i` が順に増加します。`i = 2` になったタイミングで `if (i == 2)` の条件が満たされ、`break;` が実行されます。`break` はループを即時終了させ、制御をループの外に移すため、ループ終了時の `i` の値は「2」のままとなります。"
+  },
+  {
+    "id": 115,
+    "category": "制御構造",
+    "question": "次のコードのうち、コンパイルエラーになるものはどれですか。",
+    "code": "int x = 10;\nif (x > 5) \n    break;\nSystem.out.println(x);",
+    "options": [
+      "if文の条件式",
+      "break文の部分",
+      "System.out.printlnの部分",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 1,
+    "explanation": "`break` や `continue` は、ループ構造（`for`, `while`, `do-while`）の内部、あるいは `break` の場合は `switch` 文の内部でのみ使用できます。これらをループや switch の外側の単なる `if` 文などのブロックに直接記述すると「ループの外側にブレークがある」としてコンパイルエラーになります。"
+  },
+  {
+    "id": 116,
+    "category": "制御構造",
+    "question": "次の do-while ループを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int i = 5;\ndo {\n    System.out.print(i + \" \");\n    i--;\n} while(i > 5);",
+    "options": [
+      "5 ",
+      "5 4 3 2 1 ",
+      "無限ループになる",
+      "何も出力されない"
+    ],
+    "answerIndex": 0,
+    "explanation": "do-while文は後判定ループです。まず条件判定なしでブロックが実行され、「5 」が出力されます。その後 `i--` により `i` の値は 4 になります。そこで初めて条件式 `i > 5`（4 > 5）が判定されますが、これは `false` なのでループは終了します。よって出力は「5 」のみです。"
+  },
+  {
+    "id": 117,
+    "category": "制御構造",
+    "question": "次のコードのうち、コンパイルエラーになる原因はどれですか。",
+    "code": "while(true) {\n    int num = 10;\n    break;\n}\nSystem.out.println(num);",
+    "options": [
+      "while(true) が無限ループになっているため",
+      "num 変数が while ループの外側で参照されているが、そのスコープ外であるため",
+      "ループ内で定義された変数を break の前で使っていないため",
+      "エラーは発生しない"
+    ],
+    "answerIndex": 1,
+    "explanation": "while文やfor文などのブロック `{}` 内で宣言された変数は、そのブロック内でのみ有効な「ローカル変数」となります。ブロックの外（ループを抜けた後）から `num` を参照しようとしても、スコープ外であるためコンパイルエラーになります。"
+  },
+  {
+    "id": 118,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int sum = 0;\nfor (int i = 0; i < 5; i++) {\n    if (i % 2 == 0) continue;\n    sum += i;\n}\nSystem.out.println(sum);",
+    "options": [
+      "4",
+      "6",
+      "9",
+      "10"
+    ],
+    "answerIndex": 0,
+    "explanation": "`continue` 文が実行されると、現在のループ処理（残りの処理）をスキップし、ループの次の反復（更新式 `i++` および条件判定）に移行します。iが偶数（0, 2, 4）のときは `continue` され、`sum += i` は実行されません。iが奇数（1, 3）のときのみ `sum` に加算されるため、`sum = 1 + 3 = 4` になります。"
+  },
+  {
+    "id": 119,
+    "category": "制御構造",
+    "question": "次の switch 文のコードのうち、コンパイルエラーになる原因はどれですか。",
+    "code": "int x = 5;\nfinal int target = 5;\nint val = 10;\nswitch(x) {\n    case target: \n        System.out.print(\"A\");\n        break;\n    case val:\n        System.out.print(\"B\");\n        break;\n}",
+    "options": [
+      "case target の指定（final 変数は指定できないため）",
+      "case val の指定（final ではない変数は定数式として指定できないため）",
+      "x に 5 が入っている状態で重複判定が起きるため",
+      "エラーは発生しない"
+    ],
+    "answerIndex": 1,
+    "explanation": "switch文の `case` ラベルには、コンパイル時に値が決定する「定数式（リテラルや定数）」のみを指定できます。`val` は通常の変数（値が変更可能）であるため、`case val:` と指定するとコンパイルエラーになります。一方、`target` は `final int` として定義され値が不変の定数であるため、`case target:` は有効です。"
+  },
+  {
+    "id": 120,
+    "category": "制御構造",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int a = 10;\nif (a > 5)\n    if (a < 8)\n        System.out.println(\"Inside\");\nelse\n    System.out.println(\"Outside\");",
+    "options": [
+      "Inside",
+      "Outside",
+      "何も出力されない",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "これは「懸垂else（dangling else）」の問題です。Javaでは、中括弧 `{}` が省略された場合、`else` は「最も近い（かつ else のない）手前の `if`」と自動的に結びつきます。したがって、このコードの `else` は `if (a < 8)` とペアになります。構造的には `if (a > 5) { if (a < 8) { Inside } else { Outside } }` と同等になります。`a = 10` の場合、最初の `a > 5` は `true` ですが、次の `a < 8` は `false` となり、対応する `else` 側の \"Outside\" が実行されるため、結果として \"Outside\" が出力されます...と見えますが、注意が必要です！\nあれ？ `a = 10` の場合、`a > 5` は `true` です。そして `a < 8` は `false` です。この `else` は内側の `if (a < 8)` とペアなので、`else` 部分が実行され、\"Outside\" が出力されます。よって正解は「Outside」です。"
+  },
+  {
+    "id": 121,
+    "category": "配列の操作",
+    "question": "次の配列宣言のうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "int[] a = new int[3];",
+      "int a[] = new int[3];",
+      "int a[3] = new int[];",
+      "int[][] a = new int[3][];"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaでは、変数宣言の左辺に配列の要素数（サイズ）を指定することはできません（例：`int a[3]`）。サイズは右辺のインスタンス生成時（`new int[3]`）に指定します。また、多次元配列では最初の次元のサイズ指定は必須ですが、それ以降の次元は省略可能です（例：`new int[3][]`）。"
+  },
+  {
+    "id": 122,
+    "category": "配列の操作",
+    "question": "次の配列の初期化コードのうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "int[] a = {1, 2, 3};",
+      "int[] a = new int[]{1, 2, 3};",
+      "int[] a = new int[3]{1, 2, 3};",
+      "int[] a; a = new int[]{1, 2, 3};"
+    ],
+    "answerIndex": 2,
+    "explanation": "配列の初期化と同時に値を設定する（`new int[]{1, 2, 3}`）場合、ブラケット `[]` 内に要素数を指定することはできません。要素数は指定された値の個数から自動的に決定されるため、`new int[3]{1, 2, 3}` のように書くとコンパイルエラーになります。"
+  },
+  {
+    "id": 123,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[][] array = new int[3][];\narray[0] = new int[2];\narray[1] = new int[3];\nSystem.out.println(array[2]);",
+    "options": [
+      "0",
+      "null",
+      "ArrayIndexOutOfBoundsExceptionが発生する",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "多次元配列において、`new int[3][]` と宣言した場合、各行（1次元目の要素）は参照型配列であり、その初期値はすべて `null` になります。このコードでは `array[2]` に対して新しい配列を代入（初期化）していないため、`array[2]` の値は `null` となり、出力結果は「null」になります（要素へのアクセス `array[2][0]` を試みると NullPointerException が発生します）。"
+  },
+  {
+    "id": 124,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[] a = new int[3];\nSystem.out.println(a[0] + \" \" + a[1]);",
+    "options": [
+      "0 0",
+      "null null",
+      "初期化されていないためコンパイルエラーになる",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "配列を `new` によってインスタンス化した際、その要素はデータ型に応じたデフォルト値で自動的に初期化されます。`int` 型の場合、デフォルト値は `0` なので、`a[0]` も `a[1]` も `0` となり、出力は「0 0」になります。"
+  },
+  {
+    "id": 125,
+    "category": "配列の操作",
+    "question": "文字列 `String` の長さと、配列 `int[]` の要素数を取得する記述の組み合わせとして、正しいものはどれですか。",
+    "code": "String s = \"hello\";\nint[] a = {1, 2, 3};",
+    "options": [
+      "s.length() と a.length()",
+      "s.length と a.length",
+      "s.length() と a.length",
+      "s.length と a.length()"
+    ],
+    "answerIndex": 2,
+    "explanation": "文字列（`String`）はオブジェクトであり、その文字数を取得するには `length()` メソッドを呼び出します。一方、配列（`Array`）は特殊なオブジェクトであり、その要素数を取得するには読み取り専用の `length` フィールドを参照します。よって `s.length()` と `a.length` が正解です。"
+  },
+  {
+    "id": 126,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[] a = {1, 2, 3};\nint[] b = a;\nb[0] = 99;\nSystem.out.println(a[0]);",
+    "options": [
+      "1",
+      "99",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおける配列は参照型オブジェクトです。`int[] b = a;` という代入は、配列の実体をコピーしているのではなく、配列オブジェクトへの「参照（アドレス）」をコピーしています。したがって、`a` と `b` はメモリ上の同じ配列を指しているため、`b[0]` の変更は `a[0]` の値にも影響し、結果は「99」になります。"
+  },
+  {
+    "id": 127,
+    "category": "配列の操作",
+    "question": "次のコードを実行したとき、何が発生しますか。",
+    "code": "int[] a = {1, 2, 3};\nSystem.out.println(a[3]);",
+    "options": [
+      "0 が出力される",
+      "コンパイルエラーが発生する",
+      "実行時に ArrayIndexOutOfBoundsException 例外が発生する",
+      "実行時に NullPointerException 例外が発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "配列 `a` は要素数 3 であり、有効なインデックスは `0`, `1`, `2` のみです。存在しないインデックスである `3` にアクセスしようとすると、実行時に `java.lang.ArrayIndexOutOfBoundsException`（配列境界値外アクセス例外）が発生します。"
+  },
+  {
+    "id": 128,
+    "category": "配列の操作",
+    "question": "次のコードを実行したとき、どのような結果になりますか。",
+    "code": "int[] a;\nSystem.out.println(a[0]);",
+    "options": [
+      "0 が出力される",
+      "null が出力される",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "`int[] a;` と宣言された配列変数はローカル変数であるため、自動的には初期化（インスタンス生成）されません。初期化されていないローカル変数を参照して操作しようとするとコンパイルエラーになります。"
+  },
+  {
+    "id": 129,
+    "category": "配列の操作",
+    "question": "次のコードのうち、コンパイルエラーが発生するものはどれですか。",
+    "code": "",
+    "options": [
+      "Object[] arr = new String[3];",
+      "int[] arr = new long[3];",
+      "double[] arr = new double[3];",
+      "Object[] arr = { new Object(), \"Hello\", 10 };"
+    ],
+    "answerIndex": 1,
+    "explanation": "String型はObject型を継承しているため、`Object[]` の変数に `String[]` のインスタンスを代入することは可能です（共変性）。しかし、`int` と `long` は互換性のない異なる基本データ型であるため、`int[] arr` に `long[]` インスタンスを代入しようとするとコンパイルエラーになります。"
+  },
+  {
+    "id": 130,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[] a = {1, 2, 3};\nint[] b = {1, 2, 3};\nSystem.out.println((a == b) + \" \" + a.equals(b));",
+    "options": [
+      "true true",
+      "true false",
+      "false true",
+      "false false"
+    ],
+    "answerIndex": 3,
+    "explanation": "配列オブジェクトにおける `==` 演算子および `equals()` メソッドは、どちらも「参照（アドレス）の同一性」を比較します。`a` と `b` は同じ要素を持っていますが、別々に作成された異なるオブジェクトであるため、参照先が異なり、結果はどちらも `false` になります。要素の値を比較したい場合は `java.util.Arrays.equals(a, b)` を使用します。"
+  },
+  {
+    "id": 131,
+    "category": "配列の操作",
+    "question": "次の配列操作コードのうち、コンパイルエラーになるものはどれですか。",
+    "code": "int[] a = new int[3];\n// 各行を実行する\na = {10, 20, 30}; // (1)",
+    "options": [
+      "(1)の行（宣言時以外で中括弧のみの初期化子を使用しているため）",
+      "エラーは発生せず正常に代入される",
+      "aが既にnewされているので再代入自体がエラーになる",
+      "中括弧内の値の数が配列サイズと異なるためエラーになる"
+    ],
+    "answerIndex": 0,
+    "explanation": "中括弧 `{}` のみを用いる配列初期化表記は、「配列変数の宣言と同時に初期化する場合」にのみ使用できます。宣言された後に代入を行う場合は、`a = new int[]{10, 20, 30};` のように `new` キーワードを省略せずに記述しなければならず、`a = {10, 20, 30};` と書くとコンパイルエラーになります。"
+  },
+  {
+    "id": 132,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "char[] data = {'J', 'a', 'v', 'a'};\nString str = new String(data);\nSystem.out.println(str);",
+    "options": [
+      "Java",
+      "['J', 'a', 'v', 'a']",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "String クラスには `char[]` を受け取るコンストラクタが用意されています。これを使用すると、文字配列に格納された文字を連結した文字列オブジェクトが作成されます。したがって、出力結果は「Java」となります。"
+  },
+  {
+    "id": 133,
+    "category": "配列の操作",
+    "question": "次のコードを実行したとき、出力される結果として正しいものはどれですか。",
+    "code": "int[][] grid = new int[2][3];\nSystem.out.println(grid.length + \" \" + grid[0].length);",
+    "options": [
+      "2 3",
+      "3 2",
+      "6",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaの多次元配列は「配列の配列」です。`grid.length` は外側の配列の要素数（＝行数である 2）を返します。`grid[0].length` は、その最初の要素である内側配列の要素数（＝列数である 3）を返します。よって出力は「2 3」です。"
+  },
+  {
+    "id": 134,
+    "category": "配列の操作",
+    "question": "コマンドラインから何も引数を渡さずにJavaプログラムを実行した場合、main メソッドの引数 `args` の状態として、正しいものはどれですか。",
+    "code": "public static void main(String[] args) { ... }",
+    "options": [
+      "args の値は null になる。",
+      "args は要素数 0 の配列オブジェクトを参照する（nullではない）。",
+      "引数なしで実行すると例外が発生してプログラムが起動しない。",
+      "args は未初期化の状態（コンパイルエラーと同等）になる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "コマンドライン引数を指定せずに実行した場合、JVMは `args` に `null` ではなく、「要素数0の String配列（長さ0の配列）」を生成して渡します。したがって、`args.length` は `0` となり、`args[0]` を参照しようとすると `ArrayIndexOutOfBoundsException` が発生します。"
+  },
+  {
+    "id": 135,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "final int[] arr = {1, 2, 3};\narr[0] = 10;\n// arr = new int[]{4, 5, 6}; // (1) \nSystem.out.println(arr[0]);",
+    "options": [
+      "1",
+      "10",
+      "配列が final であるため、arr[0] = 10; の代入部分でコンパイルエラーになる",
+      "(1)のコメントを解除しても正常に動作する"
+    ],
+    "answerIndex": 1,
+    "explanation": "配列変数に `final` を指定した場合、再代入が禁止されるのは「配列変数（参照）」そのものです。配列内の各要素（`arr[0]` など）の値を変更することは制限されないため、`arr[0] = 10;` は正常に実行されます。コメント部分のように配列自体を再代入しようとする操作はコンパイルエラーになります。よって出力は「10」です。"
+  },
+  {
+    "id": 136,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "float[] f = new float[2];\nf[0] = 10;\nSystem.out.println(f[0] + \" \" + f[1]);",
+    "options": [
+      "10.0 0.0",
+      "10 0",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "`float` 型の配列に整数リテラル `10` を代入することは、暗黙的に `float` 型へ拡大変換されるため問題ありません（`10.0f` と同様）。また、要素 `f[1]` はデフォルト値である `0.0` に初期化されています。したがって出力結果は「10.0 0.0」となります。"
+  },
+  {
+    "id": 137,
+    "category": "配列の操作",
+    "question": "次の多次元配列を定義したコードを実行したとき、出力される結果として正しいものはどれですか。",
+    "code": "int[][] arr = {\n    {1, 2},\n    {3, 4, 5},\n    {6}\n};\nSystem.out.println(arr[2][0] + arr[1][2]);",
+    "options": [
+      "11",
+      "9",
+      " ArrayIndexOutOfBoundsException が発生する",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "`arr` は各行で長さが異なるジャグ配列です。`arr[2][0]` は3行目の最初の要素（6）、`arr[1][2]` は2行目の3番目の要素（5）を指します。計算すると `6 + 5 = 11` となり、正常に出力されます。"
+  },
+  {
+    "id": 138,
+    "category": "配列の操作",
+    "question": "参照型の配列に関する説明として、正しいものはどれですか。",
+    "code": "String[] strings = new String[5];",
+    "options": [
+      "配列作成時、すべての要素は空文字「\"\"」で初期化される。",
+      "配列作成時、すべての要素は null で初期化される。",
+      "要素の初期値を指定しないとコンパイルエラーになる。",
+      "実行するまで初期値は決定されない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "参照型（クラス型やインターフェース型）の配列オブジェクトを生成した場合、その要素はすべて `null` で自動初期化されます。`String` も参照型であるため、すべての要素は `null` になり、空文字で初期化されることはありません。"
+  },
+  {
+    "id": 139,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[][] matrix = new int[2][2];\nmatrix[0] = new int[]{10, 20};\nmatrix[1] = new int[]{30, 40, 50};\nSystem.out.println(matrix[1][2]);",
+    "options": [
+      "0",
+      "50",
+      "ArrayIndexOutOfBoundsExceptionが発生する",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`new int[2][2]` で作成された時点では 2x2 の配列ですが、Javaの多次元配列は各行がオブジェクト参照であるため、後から異なるサイズの配列を代入し直すことが可能です。このコードでは `matrix[1]` に要素数 3 の配列を代入しているため、`matrix[1][2]` は正常にアクセス可能となり「50」を出力します。"
+  },
+  {
+    "id": 140,
+    "category": "配列の操作",
+    "question": "次のコードを実行したとき、コンパイルエラーになるのはどの行ですか。",
+    "code": "int[] a = new int[]{1, 2};\nint[] b = {3, 4};\nint[] c;\nc = {5, 6}; // (1)",
+    "options": [
+      "c = {5, 6}; の行",
+      "int[] b = {3, 4}; の行",
+      "すべての行でエラーは発生しない",
+      "int[] c; の行"
+    ],
+    "answerIndex": 0,
+    "explanation": "中括弧 `{}` のみを用いた配列初期化子は、宣言と同時でなければ使用できません。`int[] c;` と宣言した次の行で `c = {5, 6};` と書くのは文法違反となりコンパイルエラーになります。正しくは `c = new int[]{5, 6};` とする必要があります。"
+  },
+  {
+    "id": 141,
+    "category": "配列の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "int[] arr = {1, 2, 3, 4, 5};\nint sum = 0;\nfor (int i = 0; i <= arr.length; i++) {\n    sum += arr[i];\n}",
+    "options": [
+      "15",
+      "コンパイルエラーが発生する",
+      "実行時に ArrayIndexOutOfBoundsException 例外が発生する",
+      "実行時に NullPointerException 例外が発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "forループの条件式が `i <= arr.length` となっています。配列 `arr` の有効なインデックスは `0` から `arr.length - 1` (4) までです。ループが最後の `i = arr.length` (5) に達した際、`arr[5]` にアクセスしようとして、実行時に `ArrayIndexOutOfBoundsException` が発生します（このため `sum` の最終出力まで到達しません）。"
+  },
+  {
+    "id": 142,
+    "category": "配列の操作",
+    "question": "多次元配列のすべての要素を順番に出力するコードとして、適切なものはどれですか。",
+    "code": "int[][] data = { {1, 2}, {3, 4} };",
+    "options": [
+      "for(int val : data) { System.out.print(val); }",
+      "for(int[] row : data) {\n    for(int val : row) {\n        System.out.print(val + \" \");\n    }\n}",
+      "for(int i = 0; i < data.length; i++) {\n    System.out.print(data[i]);\n}",
+      "for(int val : data[0]) { System.out.print(val); }"
+    ],
+    "answerIndex": 1,
+    "explanation": "多次元配列（`int[][]`）の要素は配列（`int[]`）です。したがって、拡張for文を使用する場合、まず外側のループで各行である `int[] row` を取り出し、さらに内側のループで個々の要素 `int val` を取り出して処理する必要があります。"
+  },
+  {
+    "id": 143,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "アクセス修飾子「protected」が指定されたフィールドまたはメソッドにアクセス可能な範囲として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "同一パッケージ内のクラス、および異なるパッケージであってもそれを継承した子クラス。",
+      "同一パッケージ内のクラスのみ。",
+      "すべてのパッケージのすべてのクラス。",
+      "自クラス内のみ。"
+    ],
+    "answerIndex": 0,
+    "explanation": "`protected` 修飾子が付与されたメンバーは、(1) 同一パッケージ内のすべてのクラス、および (2) パッケージが異なっていてもそのクラスを継承した子クラス（サブクラス）からアクセス可能です。"
+  },
+  {
+    "id": 144,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のメソッド定義があるとき、これと「オーバーロード」の関係として正しく定義できるメソッドはどれですか。",
+    "code": "void calc(int x, double y) { }",
+    "options": [
+      "int calc(int x, double y) { return 0; }",
+      "void calc(int a, double b) { }",
+      "void calc(double y, int x) { }",
+      "private void calc(int x, double y) { }"
+    ],
+    "answerIndex": 2,
+    "explanation": "オーバーロード（多重定義）が成立するには、引数の「数」「型」「並び順」のいずれかが異なっている必要があります。引数の名前（引数名）、メソッドの戻り値の型、アクセス修飾子、または throwing 例外のリストだけが異なるメソッドはオーバーロードとは認められず、重複定義（コンパイルエラー）になります。よって、型順序が異なる `calc(double, int)` が有効なオーバーロードです。"
+  },
+  {
+    "id": 145,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "コンストラクタの定義に関する規則のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "クラス名と同一の名前で定義し、戻り値型として void を指定する。",
+      "クラス名と同一の名前で定義し、戻り値型は一切記述しない。",
+      "メソッド名には constructor キーワードを使用する。",
+      "コンストラクタはインスタンスから何度でも呼び出すことができる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "コンストラクタはインスタンスの生成・初期化時に呼び出される特殊な処理であり、戻り値型（`void` も含む）を一切記述してはいけません。もし `void ClassName()` のように戻り値型を記述してしまうと、それはコンストラクタではなく「通常のメソッド（たまたまクラス名と同じ名前のもの）」とコンパイラに解釈されます。"
+  },
+  {
+    "id": 146,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "同一クラス内の他のコンストラクタを呼び出すキーワード「this()」の使用ルールとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "コンストラクタ内の任意の行に記述できる。",
+      "必ずコンストラクタ内の「最初の行」に記述しなければならない。",
+      "通常のインスタンスメソッド内からも呼び出すことができる。",
+      "同一のコンストラクタ内で、this() と super() を両方とも1行目に呼び出すことができる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "`this()`（別コンストラクタの呼び出し）は、必ずコンストラクタの「最初の行」に記述しなければなりません。2行目以降に記述するとコンパイルエラーになります。同様のルールを持つ `super()` と同じコンストラクタで同時に1行目に書くことは不可能（どちらか一方のみ）です。"
+  },
+  {
+    "id": 147,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Member {\n    String name = \"Default\";\n    void setName(String name) {\n        name = name;\n    }\n}\n// 実行部\nMember m = new Member();\nm.setName(\"Alice\");\nSystem.out.println(m.name);",
+    "options": [
+      "Alice",
+      "Default",
+      "null",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`setName` メソッド内の `name = name;` は、メソッドの引数（ローカル変数）である `name` に、同じ引数 `name` の値を再代入しているだけです。フィールドである `this.name` を隠蔽（シャドウイング）しているため、フィールド側は書き換わらず「Default」のままになります。正しく書き換えるには `this.name = name;` とする必要があります。"
+  },
+  {
+    "id": 148,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "static 修飾子が付与されたメンバーに関する説明として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "インスタンスごとに個別のメモリ領域が確保され、異なる値を保持する。",
+      "クラスがロードされた時にメモリに確保され、そのクラスのすべてのインスタンスで共有される。",
+      "インスタンスを生成（new）した後にのみアクセスできるようになる。",
+      "final 修飾子と同時に指定することはできない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "`static` メンバー（クラス変数・クラスメソッド）は、インスタンスごとではなくクラス単位で管理されます。クラスロード時に実体が確保され、全インスタンスで同じ変数領域を共有します。また、インスタンスを生成しなくても `クラス名.メンバー名` で直接アクセス可能です。"
+  },
+  {
+    "id": 149,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードのうち、コンパイルエラーが発生する原因はどれですか。",
+    "code": "class Box {\n    int width = 10;\n    static void printWidth() {\n        System.out.println(width);\n    }\n}",
+    "options": [
+      "width に static 修飾子がないため、static メソッド printWidth から直接参照できない",
+      "printWidth メソッドの戻り値型が void になっているため",
+      "width が private で定義されていないため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "静的（`static`）メソッドは、特定のインスタンスを必要とせず呼び出し可能です。そのため、インスタンスが存在することを前提とする「インスタンス変数（`width`）」には直接アクセスすることができません。アクセスしようとすると、コンパイラはどのインスタンスの変数を指しているか特定できないためコンパイルエラーを発生させます。"
+  },
+  {
+    "id": 150,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードのうち、デフォルトコンストラクタ（引数なしコンストラクタ）がコンパイラによって「自動生成される」クラスはどれですか。",
+    "code": "",
+    "options": [
+      "class A { }",
+      "class B { B(int x) { } }",
+      "class C { C() { } }",
+      "1 と 2 の両方"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaでは、クラス内にコンストラクタが「1つも定義されていない」場合に限り、コンパイラが自動的に引数なしのデフォルトコンストラクタを生成します。クラスBには引数ありのコンストラクタが定義されており、クラスCには引数なしのコンストラクタが明示的に定義されているため、自動生成は行われません。したがって自動生成されるのはクラスAのみです。"
+  },
+  {
+    "id": 151,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "Javaのガベージコレクション (GC) に関する記述のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "System.gc() を呼び出すと、不要なメモリが即座に同期的に完全に回収される。",
+      "System.gc() は JVM に対してメモリ回収の実行を促す「要求・推奨」を行うだけであり、いつ動作するかは JVM の制御に委ねられる。",
+      "GC が作動したタイミングで、すべての static 変数がメモリから解放される。",
+      "メモリが不足しても GC が自動的に実行されることはない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "`System.gc()` メソッドは、不要になったメモリを回収するようガベージコレクタの起動を「要求」するものにすぎません。実際にいつ実行されるか、あるいは実行されるか自体もJVMの判断に依存しており、即時の回収を保証するものではありません。"
+  },
+  {
+    "id": 152,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したとき、ガベージコレクション (GC) の「回収対象候補」になるオブジェクトは最大でいくつですか。",
+    "code": "Object obj1 = new Object();\nObject obj2 = new Object();\nobj1 = obj2;\nobj2 = null;",
+    "options": [
+      "0個",
+      "1個（最初に obj1 が参照していたオブジェクト）",
+      "2個（両方のオブジェクト）",
+      "1個（最初に obj2 が参照していたオブジェクト）"
+    ],
+    "answerIndex": 1,
+    "explanation": "最初は 2 つのオブジェクトが作成され、それぞれ `obj1` と `obj2` に代入されています。`obj1 = obj2` の代入により、`obj1` も `obj2` のオブジェクトを指すようになります。この時点で、最初に `obj1` に入っていたオブジェクトは参照する変数が無くなり（到達不能）、GCの回収候補になります。その後 `obj2 = null` としても、`obj1` は依然として2つ目のオブジェクトを参照し続けているため、2つ目のオブジェクトは回収対象になりません。よって対象候補は1つです。"
+  },
+  {
+    "id": 153,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Point {\n    int x, y;\n    Point(int x, int y) {\n        this.x = x;\n        this.y = y;\n    }\n}\n// 実行部\nPoint p1 = new Point(10, 20);\nPoint p2 = new Point(10, 20);\nSystem.out.println((p1 == p2) + \" \" + p1.equals(p2));",
+    "options": [
+      "true true",
+      "true false",
+      "false true",
+      "false false"
+    ],
+    "answerIndex": 3,
+    "explanation": "自作の `Point` クラスは `equals` メソッドをオーバーライドしていません。Javaでは、`equals` メソッドが定義されていない場合、親クラスである `Object` の `equals` が使用されますが、これは `==` と同様に「参照（アドレス）の同一性」を比較します。`p1` と `p2` はインスタンス化により異なるメモリアドレスに配置されているため、結果はどちらも `false` になります。"
+  },
+  {
+    "id": 154,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Test {\n    int a = 10;\n    {\n        a = 20;\n    }\n    Test() {\n        a = 30;\n    }\n}\n// 実行部\nTest t = new Test();\nSystem.out.println(t.a);",
+    "options": [
+      "10",
+      "20",
+      "30",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 2,
+    "explanation": "インスタンスの生成時における初期化処理は以下の順序で実行されます：\n1. フィールドの初期値代入（`a = 10`）\n2. インスタンス初期化ブロック `{ ... }`（`a = 20`）\n3. コンストラクタ（`a = 30`）\n結果として、コンストラクタによる代入が最後に適用されるため、出力値は「30」になります。"
+  },
+  {
+    "id": 155,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class LoadTest {\n    static int val = 10;\n    static {\n        val = 20;\n        System.out.print(\"Static \");\n    }\n    LoadTest() {\n        System.out.print(\"Instance \");\n    }\n}\n// 実行部\nSystem.out.print(LoadTest.val + \" \");\nLoadTest t1 = new LoadTest();",
+    "options": [
+      "10 Static Instance ",
+      "Static 20 Instance ",
+      "Static Instance 20 ",
+      "20 Static Instance "
+    ],
+    "answerIndex": 1,
+    "explanation": "静的初期化ブロック（`static { ... }`）は、クラスがロードされたタイミング（この場合は静的変数 `LoadTest.val` にアクセスした瞬間）で、コンストラクタやインスタンス生成に先立って一度だけ実行されます。この時「Static 」が出力され、`val` は 20 になります。その後、1行目の出力文により `20 ` が、次にインスタンス生成によりコンストラクタが走って「Instance 」が出力されるため、全体として「Static 20 Instance 」が出力されます。"
+  },
+  {
+    "id": 156,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Swap {\n    int val = 10;\n    static void change(Swap s) {\n        s.val = 50;\n        s = new Swap();\n        s.val = 100;\n    }\n}\n// 実行部\nSwap obj = new Swap();\nSwap.change(obj);\nSystem.out.println(obj.val);",
+    "options": [
+      "10",
+      "50",
+      "100",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおける引数の受け渡しはすべて「値渡し（値のコピー）」です。オブジェクトを渡す際、メソッド内の変数 `s` には参照（アドレス）のコピーが渡されます。`s.val = 50;` を行うと、`s` は呼び出し元の `obj` と同じオブジェクトを指しているため、実体の値が 50 に書き換わります。しかし、その後の `s = new Swap();` は、メソッド内のローカル変数 `s` の参照先を別の新しいオブジェクトに書き換えているだけなので、呼び出し元の変数 `obj` には影響を与えません。したがって `obj.val` は「50」となります。"
+  },
+  {
+    "id": 157,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの挙動として、正しいものはどれですか。",
+    "code": "class StaticTest {\n    static String name = \"StaticName\";\n}\n// 実行部\nStaticTest st = null;\nSystem.out.println(st.name);",
+    "options": [
+      "NullPointerExceptionが発生する",
+      "StaticName が出力される",
+      "何も出力されず終了する",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "静的（`static`）メンバーは、インスタンスオブジェクトではなく「クラス」に結びついています。プログラム上で参照変数 `st` 経由でアクセスしようとした場合、たとえ `st` が `null` であっても、コンパイラは `st` の宣言型である `StaticTest.name` へアクセスするバイトコードを生成します。インスタンスへのアクセスを行わないため、実行時に `NullPointerException` は発生せず、正常に「StaticName」が出力されます。"
+  },
+  {
+    "id": 158,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "クラスのフィールドに `final` 修飾子を付与した場合、初期化を行うことができる場所として「誤っている」ものはどれですか。",
+    "code": "",
+    "options": [
+      "フィールドの宣言と同時",
+      "初期化ブロック { ... } 内",
+      "すべてのコンストラクタ内",
+      "通常のインスタンスメソッド内"
+    ],
+    "answerIndex": 3,
+    "explanation": "`final` インスタンスフィールドは、オブジェクト生成が完了するまでに必ず初期化されなければなりません。したがって、宣言時、インスタンス初期化ブロック、またはコンストラクタ内のいずれかで初期化を行う必要があります。通常のインスタンスメソッドはオブジェクト生成後に任意のタイミングで呼び出されるため、そこで final フィールドを初期化（代入）しようとするとコンパイルエラーになります。"
+  },
+  {
+    "id": 159,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "可変長引数（Variable Arguments / varargs）メソッドの定義ルールとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "可変長引数は、引数リストの任意の位置に複数定義できる。",
+      "可変長引数は、引数リストの最後に1つだけしか定義できない。",
+      "可変長引数として受け取る型は、基本データ型に限定される。",
+      "可変長引数を指定したメソッドは、引数なしで呼び出すことができない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "可変長引数（例：`int... numbers`）を使用する場合、それはメソッドの引数リストの「最後」に記述しなければならず、1つのメソッドにつき「最大1つ」しか宣言できません。引数に渡した値は内部的に配列として扱われ、引数なし（0個）で呼び出した場合は要素数0の配列として渡されます。"
+  },
+  {
+    "id": 160,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードのうち、コンパイルエラーになる原因はどれですか。",
+    "code": "class OverloadTest {\n    void process(int[] array) { }\n    void process(int... values) { } // (1)\n}",
+    "options": [
+      "(1)の行（可変長引数のシグネチャが int[] と同一とみなされ重複定義になるため）",
+      "(1)の行（可変長引数の記述方法が間違っているため）",
+      "process メソッドが private でないため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaにおいて、可変長引数（`int... values`）はコンパイル時に配列（`int[]`）として扱われます。そのため、メソッド `process(int[])` と `process(int...)` は同一のシグネチャ（引数構成）と判定され、重複定義となりコンパイルエラー（重複エラー）が発生します。"
+  },
+  {
+    "id": 161,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "コンストラクタのアクセス修飾子を「private」に設定した場合の挙動として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "クラス定義自体がエラーになる。",
+      "外部のクラスから new キーワードを使ってこのクラスのインスタンスを生成できなくなる。",
+      "同一クラス内の他のコンストラクタからも this() で呼び出せなくなる。",
+      "インスタンスは生成できるが、そのフィールドにアクセスできなくなる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "コンストラクタに `private` を指定すると、アクセス権がそのクラス内に限定されます。これにより、外部のクラスから `new` を用いて直接インスタンス化することが不可能になります。これはシングルトンパターンなどで特定のインスタンス生成経路（ファクトリメソッドなど）に限定したい場合に広く使われます。"
+  },
+  {
+    "id": 162,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Chain {\n    Chain() {\n        this(10);\n        System.out.print(\"A \");\n    }\n    Chain(int x) {\n        System.out.print(\"B \" + x + \" \");\n    }\n}\n// 実行部\nChain c = new Chain();",
+    "options": [
+      "A B 10 ",
+      "B 10 A ",
+      "A ",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`new Chain()` を呼び出すと、引数なしコンストラクタが起動します。その最初の行で `this(10)` が呼び出されるため、即座に制御が `Chain(int x)` コンストラクタに移り、「B 10 」が出力されます。その完了後、引数なしコンストラクタの処理に戻り、「A 」が出力されます。したがって出力結果は「B 10 A 」になります。"
+  },
+  {
+    "id": 163,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Test {\n    int val = 100;\n    void display() {\n        int val = 50;\n        System.out.println(val);\n    }\n}\n// 実行部\nTest t = new Test();\nt.display();",
+    "options": [
+      "100",
+      "50",
+      "150",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "メソッド内でクラスのフィールドと同名のローカル変数（`val`）が宣言された場合、メソッド内ではローカル変数の定義が優先して参照されます。これを「シャドウイング（値の隠蔽）」と呼びます。フィールドを参照したい場合は `this.val` と明示的に指定する必要があります。よって出力は「50」です。"
+  },
+  {
+    "id": 164,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "static インポート（static import）機能に関する記述として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "すべての static フィールドを public に書き換えるインポート宣言。",
+      "他のクラスの static 変数や static メソッドを、クラス名を指定せずに直接名前だけで記述できるようにするインポート宣言。",
+      "インポートしたクラスのインスタンス生成を自動的に禁止する機能。",
+      "import static java.lang.System.out.println; という宣言は正しい。"
+    ],
+    "answerIndex": 1,
+    "explanation": "`import static` は、他のクラスの静的メンバー（例：`Math.PI` や `Math.sqrt()`）を、クラス名を省略して `PI` や `sqrt()` と直接記述できるようにする機能です。なお、メソッドをインポートする際は丸括弧 `()` は付けず `import static java.lang.System.out;` のように記述します（`out.println` として利用します）。"
+  },
+  {
+    "id": 165,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Counter {\n    static int count = 0;\n    Counter() {\n        count++;\n    }\n}\n// 実行部\nCounter c1 = new Counter();\nCounter c2 = new Counter();\nCounter c3 = new Counter();\nSystem.out.println(Counter.count);",
+    "options": [
+      "0",
+      "1",
+      "3",
+      "インスタンスごとに count が確保されるため 1 となる"
+    ],
+    "answerIndex": 2,
+    "explanation": "`count` は `static`（クラス変数）です。インスタンス全体で唯一の変数領域が共有されるため、インスタンスが `new` で生成されるたびにコンストラクタで `count++` が共通の変数に対して行われます。3回生成しているため、最終的な値は「3」となります。"
+  },
+  {
+    "id": 166,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のクラス定義のうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "class Student { private String name; }",
+      "class Student { void Student() { } }",
+      "class Student { Student(String name) { } }",
+      "エラーになるクラス定義はない"
+    ],
+    "answerIndex": 3,
+    "explanation": "すべての定義は有効です。`void Student()` は戻り値型 `void` が指定されているため、コンストラクタではなく「Studentという名前のインスタンスメソッド」と解釈されるためコンパイルは通ります。`Student(String name)` も通常の引数付きコンストラクタなので適法です。"
+  },
+  {
+    "id": 167,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Calc {\n    int add(int x, int y) { return x + y; }\n    double add(double x, double y) { return x + y; }\n}\n// 実行部\nCalc c = new Calc();\nSystem.out.println(c.add(10, 20.0));",
+    "options": [
+      "30",
+      "30.0",
+      "型不一致によりコンパイルエラーが発生する",
+      "実行時にキャスト例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`c.add(10, 20.0)` の引数は `int` 型と `double` 型です。これに適合するシグネチャを検索した際、`add(int, int)` は第2引数の `double` を `int` に縮小変換（暗黙キャスト）できないため呼び出せません。一方、`add(double, double)` は第1引数の `int` を `double` へ安全に拡大変換（昇格）できるため、こちらが選択されます。結果として `10.0 + 20.0 = 30.0`（double）が返され、出力されます。"
+  },
+  {
+    "id": 168,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "カプセル化（Encapsulation）を正しく説明している記述はどれですか。",
+    "code": "",
+    "options": [
+      "すべてのフィールドを public で公開し、どこからでも自由に値を読み書きできるようにすること。",
+      "関連するデータ（フィールド）とそれらを操作する処理（メソッド）を1つのクラスにまとめ、不正な直接アクセスを防ぐためにデータを隠蔽（private）し、公開メソッド（getter/setter）を介して安全に操作すること。",
+      "すべてのクラスを final で宣言して継承を禁止すること。",
+      "1つのインターフェースを複数のクラスに実装させること。"
+    ],
+    "answerIndex": 1,
+    "explanation": "カプセル化はオブジェクト指向の主要な概念の1つです。データを `private` 修飾子で非公開にし、`public` な `getter` および `setter` メソッドを提供することで、値の検証（バリデーション）などを行えるようにし、オブジェクトの整合性を保ちます。"
+  },
+  {
+    "id": 169,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Book {\n    String title;\n    Book(String title) {\n        title = title;\n    }\n}\n// 実行部\nBook b = new Book(\"Java\");\nSystem.out.println(b.title);",
+    "options": [
+      "Java",
+      "null",
+      "デフォルトのオブジェクト参照値",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "引数名 `title` とフィールド名 `title` が同名になっています。`title = title;` と記述すると、引数のローカル変数に引数の値を再代入するだけになり、フィールドには何も代入されません。インスタンスフィールド `title` の初期値は `null`（参照型デフォルト値）のままであるため、出力は「null」になります。正しくは `this.title = title;` と記述します。"
+  },
+  {
+    "id": 170,
+    "category": "クラスの定義とオブジェクトの使用",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Greeter {\n    static String greet() {\n        return \"Hello\";\n    }\n}\n// 実行部\nGreeter g = new Greeter();\nSystem.out.println(g.greet());",
+    "options": [
+      "Hello",
+      "コンパイルエラーが発生する（static メソッドはインスタンス g 経由で呼び出せないため）",
+      "NullPointerExceptionが発生する",
+      "実行時にキャストエラーになる"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaでは、`static` メソッドをインスタンスの変数名（ここでは `g`）を経由して呼び出すことが「文法的に許容されています」。コンパイラ内部で `Greeter.greet()` の呼び出しに自動的に変換して実行されるため、コンパイルエラーにはならず「Hello」が出力されます。ただし、開発のベストプラクティスとしてはクラス名から直接呼び出すべき（`Greeter.greet()`）とされています。"
+  },
+  {
+    "id": 171,
+    "category": "継承とポリモーフィズム",
+    "question": "Javaにおけるクラス継承（extends）のルールに関する記述のうち、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "1つのクラスは、複数の親クラスを同時に継承（多重継承）できる。",
+      "Javaのクラスは、extends キーワードで最大1つのクラスのみを継承できる（単一継承モデル）。",
+      "子クラスは、親クラスのすべての private フィールドや private メソッドを直接呼び出すことができる。",
+      "final 修飾子が付与されたクラスを extends して機能拡張することができる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaのクラス継承は「単一継承（single inheritance）」モデルを採用しており、`extends` で指定できる親クラスは最大1つのみです。多重継承はサポートされていません。また、`private` メンバーは継承関係があっても直接アクセスできません。`final` クラスは継承できません。"
+  },
+  {
+    "id": 172,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードのうち、コンパイルエラーになる原因として正しいものはどれですか。",
+    "code": "class Parent {\n    Parent(int x) {\n        System.out.println(\"Parent:\" + x);\n    }\n}\nclass Child extends Parent {\n    Child() {\n        System.out.println(\"Child\");\n    }\n}",
+    "options": [
+      "Child クラスに super() の明示的呼び出しがないが、Parent に引数なしコンストラクタが存在しないため",
+      "Parent クラスにアクセス修飾子 public が付いていないため",
+      "Child クラスのコンストラクタが引数を受け取っていないため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "子クラスのコンストラクタの先頭に `super()` や `this()` が明示的に記述されていない場合、コンパイラは暗黙的に「親の引数なしコンストラクタ」を呼び出す `super();` を自動挿入します。しかし、親クラス `Parent` には引数ありコンストラクタが定義されており、デフォルトコンストラクタが自動生成されないため、`Parent()` が存在しません。その結果、自動挿入された `super()` は親クラスで合致するコンストラクタを見つけられず、コンパイルエラーになります。解決するには `super(10);` のように明示的に引数付きコンストラクタを呼び出す必要があります。"
+  },
+  {
+    "id": 173,
+    "category": "継承とポリモーフィズム",
+    "question": "親クラスのメソッドを子クラスで「オーバーライド（再定義）」する際の、アクセス修飾子に関するルールとして、正しいものはどれですか。",
+    "code": "class Parent {\n    protected void print() { }\n}",
+    "options": [
+      "子クラスの print メソッドには private を指定できる。",
+      "子クラスの print メソッドにはアクセス修飾子を付けない（パッケージプライベート）にできる。",
+      "子クラスの print メソッドには protected または public のみを指定できる。",
+      "子クラスの print メソッドは必ず protected でなければならない。"
+    ],
+    "answerIndex": 2,
+    "explanation": "オーバーライドのルールとして、子クラスで再定義するメソッドのアクセス修飾子は、親クラスのメソッドのアクセス権「と同じ、またはそれより広い」アクセス権を指定する必要があります。親クラスが `protected` の場合、それより広い `protected` または `public` を指定しなければなりません。より制限の厳しい `private` や「修飾子なし」を指定すると、アクセス制限の違反によりコンパイルエラーが発生します。"
+  },
+  {
+    "id": 174,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class A {\n    A get() { return this; }\n}\nclass B extends A {\n    B get() { return this; }\n}\n// 実行部\nA obj = new B();\nSystem.out.println(obj.get() instanceof B);",
+    "options": [
+      "true",
+      "false",
+      "戻り値型が異なるため、B クラスの定義箇所でコンパイルエラーが発生する",
+      "実行時にキャスト例外が発生する"
+    ],
+    "answerIndex": 0,
+    "explanation": "Java 5以降、オーバーライドメソッドの戻り値型として、親クラスの戻り値型（`A`）のサブクラス（`B`）を指定することが可能になりました。これを「共変戻り値（covariant return type）」と呼びます。したがってクラスBの `get` メソッドのオーバーライドは有効です。また、実体は `B` なので `obj.get()` の戻り値は `B` オブジェクトとなり、`instanceof B` の結果は `true` となります。"
+  },
+  {
+    "id": 175,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードのうち、コンパイルエラーが発生する原因はどれですか。",
+    "code": "class Parent {\n    static void show() { }\n}\nclass Child extends Parent {\n    void show() { } // (1)\n}",
+    "options": [
+      "(1)の行（親の static メソッドをインスタンスメソッドでオーバーライドすることはできないため）",
+      "show メソッドの引数がないため",
+      "Child クラスが Parent を正しく継承できていないため",
+      "エラーは発生せず正常にコンパイルできる"
+    ],
+    "answerIndex": 0,
+    "explanation": "親クラスの `static` メソッドと同じ名前・引数のメソッドを、子クラスで非 `static`（インスタンスメソッド）として定義することはできません。逆も同様に、親のインスタンスメソッドを子で `static` メソッドとして定義することもできません。これらはメソッドの性質が異なるため、混同を避けるためにコンパイルエラーとなります。（なお、親子ともに static で同名定義した場合はオーバーライドではなく「メソッド隠蔽」となり適法です）"
+  },
+  {
+    "id": 176,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Parent {\n    private void display() {\n        System.out.println(\"Parent\");\n    }\n}\nclass Child extends Parent {\n    public void display() {\n        System.out.println(\"Child\");\n    }\n}\n// 実行部\nParent p = new Child();\n// p.display(); // (1) \nChild c = new Child();\nc.display(); // (2)",
+    "options": [
+      "(2)で Child と出力される。また(1)のコメントを外すとコンパイルエラーになる。",
+      "(2)で Child と出力される。また(1)のコメントを外すと Parent と出力される。",
+      "Child クラスの display が Parent の private メソッドを無効にオーバーライドしているためコンパイルエラーになる。",
+      "(2)で Parent と出力される。"
+    ],
+    "answerIndex": 0,
+    "explanation": "親クラスで `private` で宣言されているメソッドは、子クラスに継承されません。そのため、子クラスで同名の `display()` を宣言してもオーバーライドにはならず、単に「Child クラスで定義された新規メソッド」となります。したがって、(2)の `c.display()` は正常に呼び出せて「Child」が出力されます。一方、(1)の `p.display()` は、親クラス `Parent` 側から見て `display()` が private であるため、外部（実行部）からはアクセス不能であり、コメントを外すとコンパイルエラーが発生します。"
+  },
+  {
+    "id": 177,
+    "category": "継承とポリモーフィズム",
+    "question": "Javaのインターフェース（interface）の多重実装ルールに関する記述として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "1つのクラスは、implements キーワードの後に複数のインターフェースをカンマ区切りで指定して同時に実装できる。",
+      "インターフェースはクラスと異なり、最大1つしか実装することができない。",
+      "クラス継承（extends）とインターフェース実装（implements）を同時に行う場合、implements を先に書かなければならない。",
+      "インターフェースを実装したクラスは、インターフェース側のすべてのメソッドを実装する必要はない。"
+    ],
+    "answerIndex": 0,
+    "explanation": "Javaのクラス定義では、1つのクラスに対して複数のインターフェースをカンマ区切りで実装（例: `class A implements I1, I2`）することができます。また、`extends` と `implements` を同時に記述する場合は、必ず `extends` を先に記述する必要があります（順序が逆だとコンパイルエラーになります）。"
+  },
+  {
+    "id": 178,
+    "category": "継承とポリモーフィズム",
+    "question": "次のインターフェースのメンバ定義のうち、自動的（暗黙的）に付与される修飾子の性質として「誤っている」ものはどれですか。",
+    "code": "interface Printable {\n    int count = 10; \n    void print();\n}",
+    "options": [
+      "count 変数は暗黙的に public static final（定数）になる。",
+      "print() メソッドは暗黙的に public abstract になる。",
+      "count 変数は final が暗黙で付与されるため、宣言時に必ず初期値を与える必要がある。",
+      "print() メソッドは記述が省略されているためパッケージプライベートになる。"
+    ],
+    "answerIndex": 3,
+    "explanation": "インターフェース内で宣言される変数は記述に関係なくすべて暗黙的に `public static final` になり、メソッドは暗黙的に `public abstract`（抽象メソッド）になります。インターフェース内にアクセス修飾子を記述しなかったからといって「パッケージプライベート」になることはありません。すべて `public` です。"
+  },
+  {
+    "id": 179,
+    "category": "継承とポリモーフィズム",
+    "question": "次のインターフェースに関する記述のうち、Java 8以降で導入された「デフォルトメソッド」の説明として、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "インターフェース内で private 修飾子を指定して処理内容を隠蔽するメソッド。",
+      "default キーワードを使用し、インターフェースの内部に「メソッドの処理内容（ボディ）」を直接定義できるインスタンスメソッド。",
+      "インターフェースを実装するクラスでオーバーライドしてはいけないメソッド。",
+      "インターフェースを static ロードする特別な初期化ブロック。"
+    ],
+    "answerIndex": 1,
+    "explanation": "Java 8以降、インターフェース内に `default` キーワードを付与することで、処理ブロック `{}` を持つインスタンスメソッド（デフォルトメソッド）を定義できるようになりました。これにより、既存のインターフェースに影響を与えることなく新しいメソッドを追加することが可能になりました（実装クラスでオーバーライドすることも可能です）。"
+  },
+  {
+    "id": 180,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Parent {\n    void speak() { System.out.println(\"Parent\"); }\n}\nclass Child extends Parent {\n    void speak() { System.out.println(\"Child\"); }\n}\n// 実行部\nParent p = new Child();\np.speak();",
+    "options": [
+      "Parent",
+      "Child",
+      "コンパイルエラーが発生する",
+      "実行時に例外が発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "ポリモーフィズムの核心的な挙動です。参照変数 `p` の宣言上の型は `Parent` ですが、参照している実際のインスタンス（オブジェクト）は `Child` です。Javaのインスタンスメソッドは動的に解決され、オブジェクトの「実体の型」に基づいてオーバーライドされたメソッドが呼び出されます。したがって、Childの `speak()` が実行され「Child」が出力されます。"
+  },
+  {
+    "id": 181,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Parent {\n    int val = 10;\n    static void print() { System.out.print(\"Parent \"); }\n}\nclass Child extends Parent {\n    int val = 20;\n    static void print() { System.out.print(\"Child \"); }\n}\n// 実行部\nParent p = new Child();\nSystem.out.print(p.val + \" \");\np.print();",
+    "options": [
+      "20 Child ",
+      "10 Parent ",
+      "20 Parent ",
+      "10 Child "
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおいて、オーバーライド（実体の型に基づいて動作が決定される）が適用されるのは「非 static なインスタンスメソッド」のみです。一方で、フィールド（変数）の参照や `static` メソッドの呼び出しは、オブジェクトの実体ではなく、参照変数 `p` の「宣言された型（この場合は Parent）」に基づいてコンパイル時に静的に解決されます。したがって、`p.val` は Parent クラスの 10 となり、`p.print()` は Parent の static メソッドが呼び出され、結果は「10 Parent 」になります。"
+  },
+  {
+    "id": 182,
+    "category": "継承とポリモーフィズム",
+    "question": "次のキャスト処理のうち、コンパイルエラーが発生するものはどれですか。",
+    "code": "class Animal { }\nclass Dog extends Animal { }\nclass Car { }",
+    "options": [
+      "Animal a = new Dog(); Dog d = (Dog)a;",
+      "Animal a = new Animal(); Dog d = (Dog)a;",
+      "Animal a = (Animal) new Car();",
+      "Dog d = new Dog(); Animal a = d;"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaのキャスト操作において、コンパイラはキャスト対象の型同士に継承関係が「全く存在しない」場合、キャスト不可能と判断してコンパイルエラーを発生させます。`Animal` と `Car` は無関係のクラス同士であるため、`new Car()` を `Animal` にキャストしようとする式はコンパイルエラーになります。なお、`Dog d = (Dog)a;`（AnimalをDogにする）は継承関係があるためコンパイルは通ります（ただし実体がAnimalの場合は実行時にClassCastExceptionが発生します）。"
+  },
+  {
+    "id": 183,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したとき、何が発生しますか。",
+    "code": "class Parent { }\nclass Child extends Parent { }\n// 実行部\nParent p = new Parent();\nChild c = (Child) p;",
+    "options": [
+      "正常にキャストされ終了する",
+      "コンパイルエラーが発生する",
+      "実行時に ClassCastException 例外が発生する",
+      "変数 c には null が代入される"
+    ],
+    "answerIndex": 2,
+    "explanation": "参照変数 `p` の宣言型は `Parent` であり、子クラスである `Child` とは継承関係があるため、ダウンキャスト `(Child) p` はコンパイルを通過します。しかし、実行時、オブジェクトの実体は親である `Parent` インスタンスです。親クラスの実体を子クラスにキャストすることはできないため、実行時に `java.lang.ClassCastException` が発生します。"
+  },
+  {
+    "id": 184,
+    "category": "継承とポリモーフィズム",
+    "question": "「instanceof」演算子に関する記述のうち、正しいものはどれですか。",
+    "code": "class Parent { }\nclass Child extends Parent { }\n// 実行部\nParent p = null;",
+    "options": [
+      "p instanceof Parent を判定しようとすると、p が null であるため実行時に NullPointerException が発生する。",
+      "p instanceof Parent はコンパイルエラーになる。",
+      "p instanceof Parent は評価され、結果は false と判定される。",
+      "p instanceof Parent は評価され、結果は true と判定される。"
+    ],
+    "answerIndex": 2,
+    "explanation": "`instanceof` 演算子は、チェック対象のオブジェクトの実体が指定した型（またはそのサブクラス・実装クラス）であるかを検証します。評価対象の変数の値が `null` である場合、`instanceof` の評価結果は例外を発生させることなく、常に安全に `false` を返します。よって「false と判定される」が正解です。"
+  },
+  {
+    "id": 185,
+    "category": "継承とポリモーフィズム",
+    "question": "抽象クラス（abstract class）のインスタンス化に関する規則として、正しいものはどれですか。",
+    "code": "abstract class Animal { }",
+    "options": [
+      "Animal a = new Animal(); のように直接インスタンス化できる。",
+      "抽象クラスは直接 new キーワードでインスタンスを生成することはできない。",
+      "抽象メソッドを1つも持たない抽象クラスであれば new を使って直接インスタンス化できる。",
+      "抽象クラスは変数として宣言することも禁止されている。"
+    ],
+    "answerIndex": 1,
+    "explanation": "抽象クラス（`abstract`）は未完成の設計図のようなものであり、たとえ内部に抽象メソッドを1つも持っていなかったとしても、`new` キーワードを用いて直接インスタンス化することは一切できません。必ずサブクラスで具現化した上でインスタンスを生成します。変数として型を宣言することは可能です。"
+  },
+  {
+    "id": 186,
+    "category": "継承とポリモーフィズム",
+    "question": "次の抽象クラスおよびそれを継承したクラスのコードのうち、コンパイルエラーが発生する箇所はどこですか。",
+    "code": "abstract class Tool {\n    abstract void run();\n}\nclass Hammer extends Tool { \n    // (1) 記述なし\n}",
+    "options": [
+      "Tool クラスの定義",
+      "Hammer クラスの定義箇所（親クラスの抽象メソッド run() をオーバーライドしていないため）",
+      "コンパイルエラーは発生しない",
+      "run() メソッドの戻り値型が void になっている箇所"
+    ],
+    "answerIndex": 1,
+    "explanation": "抽象クラスを継承した通常のクラス（具象クラス）は、親クラスで定義されているすべての抽象メソッド（`abstract` メソッド）をオーバーライドして実装（具体化）する「義務」があります。`Hammer` クラスで `run()` メソッドを実装していないため、Hammer 自体も抽象クラスとして宣言しない限り、コンパイルエラーになります。"
+  },
+  {
+    "id": 187,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードのうち、コンパイルエラーになる記述はどれですか。",
+    "code": "",
+    "options": [
+      "final class A { } \nclass B extends A { }",
+      "class A { final void doSomething() { } } \nclass B extends A { }",
+      "abstract class A { } \nclass B extends A { }",
+      "interface I { } \nclass B implements I { }"
+    ],
+    "answerIndex": 0,
+    "explanation": "`final` 修飾子が付与されたクラスは、それ以上の継承を禁止します。そのため、`final class A` を親クラスとして `class B extends A` と宣言しようとするとコンパイルエラーになります。なお、メソッドに対する `final` はオーバーライド禁止を意味し、継承自体は可能です。"
+  },
+  {
+    "id": 188,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードのうち、コンパイルエラーが発生する原因はどれですか。",
+    "code": "class A {\n    final void process() { }\n}\nclass B extends A {\n    void process() { } // (1)\n}",
+    "options": [
+      "(1)の行（親の final メソッド process() をオーバーライドしようとしているため）",
+      "B クラスが final でないため",
+      "process の戻り値が void であるため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "メソッドに `final` 修飾子が付いている場合、子クラスにおいてそのメソッドを「オーバーライド（再定義）」することは禁止されます。子クラス B で `void process()` を定義しようとすると、コンパイルエラーになります。"
+  },
+  {
+    "id": 189,
+    "category": "継承とポリモーフィズム",
+    "question": "抽象メソッドを持たない「abstract class」の定義に関するルールとして、正しいものはどれですか。",
+    "code": "abstract class Empty {\n    void print() { System.out.println(\"Hi\"); }\n}",
+    "options": [
+      "抽象メソッドを1つも持たないクラスを abstract クラスとして宣言することはできない。",
+      "抽象メソッドを持たなくても、クラス宣言に abstract を指定することは可能で、直接のインスタンス化（new）のみが禁止される。",
+      "抽象メソッドがなければ自動的に abstract が取り消される。",
+      "抽象メソッドがないため、継承（extends）することができない。"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおいて、`abstract` クラス内に必ずしも `abstract`（抽象）メソッドを定義する必要はありません。具象メソッドのみを持つクラスであっても `abstract` クラスとして定義することは可能であり、この場合「単に直接インスタンス化（`new`）されることを防ぎたいクラス」として機能します。"
+  },
+  {
+    "id": 190,
+    "category": "継承とポリモーフィズム",
+    "question": "インターフェース同士の継承関係に関するルールとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "インターフェースは他のインターフェースを継承（extends）することはできない。",
+      "1つのインターフェースは、extends キーワードを使用し、複数のインターフェースを同時に継承（多重継承）できる。",
+      "インターフェースは implements キーワードを使って別のインターフェースを実装する。",
+      "インターフェースはクラスを継承することができる。"
+    ],
+    "answerIndex": 1,
+    "explanation": "インターフェース同士の継承には `extends` を使用します（`implements` ではありません）。また、クラス定義と異なり、インターフェースは「複数のインターフェースをカンマ区切りで同時に多重継承」することが許容されています（例: `interface I3 extends I1, I2`）。クラスを継承することはできません。"
+  },
+  {
+    "id": 191,
+    "category": "継承とポリモーフィズム",
+    "question": "次のインターフェースを実装したクラスのコードのうち、コンパイルエラーになる原因はどれですか。",
+    "code": "interface Workable {\n    void work();\n}\nclass Person implements Workable {\n    void work() { \n        System.out.println(\"working\"); \n    }\n}",
+    "options": [
+      "Person クラスの work メソッドに public 修飾子が付いておらず、アクセス制限を厳しくしているため",
+      "Workable インターフェースの work() に abstract が指定されていないため",
+      "Person クラスに extends が指定されていないため",
+      "エラーは発生せず正常にコンパイルできる"
+    ],
+    "answerIndex": 0,
+    "explanation": "インターフェースで宣言されたメソッド（`work`）は、記述が省略されていても暗黙的に `public abstract` です。これを実装する `Person` クラスでオーバーライドする際、親の `public` より狭いアクセス修飾子を割り当てることはできません。Javaでは修飾子を省略すると「パッケージプライベート」になりアクセス権が狭まるため、明示的に `public void work()` と書かなければコンパイルエラーになります。"
+  },
+  {
+    "id": 192,
+    "category": "継承とポリモーフィズム",
+    "question": "すべてのJavaのクラスに暗黙的に提供されている、最上位の共通の親クラスはどれですか。",
+    "code": "",
+    "options": [
+      "java.lang.Class",
+      "java.lang.Object",
+      "java.lang.System",
+      "java.lang.String"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおけるすべてのクラス（明示的に `extends` を指定していないクラスも含む）は、自動的に `java.lang.Object` クラスを継承しています。そのため、すべてのオブジェクトは `Object` クラスが提供する `toString()` や `equals()`, `hashCode()` などの共通メソッドを利用することができます。"
+  },
+  {
+    "id": 193,
+    "category": "継承とポリモーフィズム",
+    "question": "次のクラス継承およびコンストラクタチェーンに関するコードを実行したとき、どのような出力結果になりますか。",
+    "code": "class X {\n    X() { System.out.print(\"X \"); }\n}\nclass Y extends X {\n    Y(int x) {\n        // 暗黙の super(); \n        System.out.print(\"Y:\" + x + \" \");\n    }\n}\nclass Z extends Y {\n    Z() {\n        super(100);\n        System.out.print(\"Z \");\n    }\n}\n// 実行部\nZ obj = new Z();",
+    "options": [
+      "Z Y:100 X ",
+      "X Y:100 Z ",
+      "Y:100 Z ",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "インスタンスの生成時にコンストラクタは継承チェーンの最上位から順番に実行されます。\n- `new Z()` が呼ばれ、Zのコンストラクタの先頭で `super(100)`（Yの引数付き）が実行されます。\n- `Y(int x)` に移ります。その先頭行には super呼び出しがないため、暗黙の `super()`（Xの引数なし）が自動実行されます。\n- 最上位の `X()` が実行され、「X 」を出力。\n- `Y(int x)` の残りが実行され、「Y:100 」を出力。\n- `Z()` の残りが実行され、「Z 」を出力。\nしたがって出力結果は「X Y:100 Z 」になります。"
+  },
+  {
+    "id": 194,
+    "category": "継承とポリモーフィズム",
+    "question": "次の参照型変数の代入コードのうち、コンパイルエラーになるものはどれですか。",
+    "code": "class Animal { }\nclass Dog extends Animal { }\nclass Cat extends Animal { }",
+    "options": [
+      "Animal a = new Dog(); (アップキャスト)",
+      "Dog d = new Dog(); Animal a = d; (アップキャスト)",
+      "Dog d = new Animal(); (明示的キャストなしのダウンキャスト)",
+      "Animal a = new Dog(); Dog d = (Dog) a; (明示的キャストありのダウンキャスト)"
+    ],
+    "answerIndex": 2,
+    "explanation": "親クラスの参照変数に子クラスのインスタンスを代入すること（アップキャスト）は、常に安全であるためキャストなしで自動的（暗黙的）に行えます。しかし、子クラスの参照変数に親クラス型の値・変数を代入すること（ダウンキャスト）は、実行時の安全性が保証されないため、明示的にキャスト `(Dog)` を記述しなければコンパイルエラーになります。よって `Dog d = new Animal();` はコンパイルエラーです。"
+  },
+  {
+    "id": 195,
+    "category": "継承とポリモーフィズム",
+    "question": "子クラスでオーバーライドしたメソッドの中から、親クラスで定義されている元の（オーバーライド前の）メソッドを明示的に呼び出したい場合に使用するキーワードはどれですか。",
+    "code": "",
+    "options": [
+      "this",
+      "super",
+      "parent",
+      "base"
+    ],
+    "answerIndex": 1,
+    "explanation": "子クラス内で親クラスのメンバー（フィールドや隠蔽・オーバーライドされたメソッド）を明示的に指定して参照したい場合は、`super` キーワードを使用して `super.methodName()` のように呼び出します。"
+  },
+  {
+    "id": 196,
+    "category": "継承とポリモーフィズム",
+    "question": "次の2つのインターフェースを同一のクラスで実装しようとする場合のルールとして、正しい記述はどれですか。",
+    "code": "interface A { void show(); }\ninterface B { void show(); }",
+    "options": [
+      "同じシグネチャのメソッドが競合しているため、この2つのインターフェースを同時に実装したクラスは定義できない。",
+      "implements A, B とするクラス内で、public void show() を1つ実装すれば、両方のインターフェースの要件を満たすことができる。",
+      "A用の show() と B用の show() をそれぞれ別々に分けてクラス内に記述しなければならない。",
+      "コンパイルは通るが、実行時に曖昧さ回避のための例外が発生する。"
+    ],
+    "answerIndex": 1,
+    "explanation": "インターフェースの通常のメソッドには実体（処理内容）がありません。したがって、偶然同じ名前・引数・戻り値（同じシグネチャ）のメソッドが複数のインターフェースに存在していても、実装クラス側で `public void show() { ... }` を1つだけ実装すれば、両方のインターフェースを同時に満たしたことになり、正常にコンパイルおよび実行できます。"
+  },
+  {
+    "id": 197,
+    "category": "継承とポリモーフィズム",
+    "question": "次の2つのデフォルトメソッドを持つインターフェースを同一のクラスで実装したとき、何が発生しますか。",
+    "code": "interface A { default void show() { System.out.println(\"A\"); } }\ninterface B { default void show() { System.out.println(\"B\"); } }\nclass Test implements A, B {\n    // 記述なし\n}",
+    "options": [
+      "インターフェースAの show() が優先して自動的に呼び出される。",
+      "どちらの show() を使用すべきか判断できないため、Test クラスの定義箇所でコンパイルエラーが発生する。",
+      "実行時にランダムでどちらかが呼び出される。",
+      "コンパイルは通るが、show() を呼び出した瞬間に例外が発生する。"
+    ],
+    "answerIndex": 1,
+    "explanation": "デフォルトメソッド（`default`）は処理ボディを持っています。同じシグネチャのデフォルトメソッドを持つ2つ以上のインターフェースを同時に実装した場合、コンパイラはどちらの処理を適用すべきか判断できないため、Test クラスで衝突エラー（コンパイルエラー）を引き起こします。これを解決するには、実装クラス `Test` 内で `show()` を明示的にオーバーライドし、どちらを呼び出すかを指定（例：`A.super.show();`）する必要があります。"
+  },
+  {
+    "id": 198,
+    "category": "継承とポリモーフィズム",
+    "question": "抽象クラス（abstract class）のメンバー変数や具象メソッドに関するルールとして、正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "抽象クラスの中には、通常のインスタンス変数や処理（ブロック）を持つ通常のメソッドを定義できる。",
+      "抽象クラスの中には、抽象メソッドしか定義できない。",
+      "抽象クラスの中にコンストラクタを定義することはできない。",
+      "抽象クラスのメンバーはすべて自動的に static になる。"
+    ],
+    "answerIndex": 0,
+    "explanation": "抽象クラスは「インスタンス化できない」という制限と「抽象メソッドを持てる」という点を除き、通常のクラスと同じ性質を持ちます。すなわち、通常のインスタンスフィールドや初期化ブロック、コンストラクタ、処理が実装された通常の具象メソッドなどを自由に定義することができます。"
+  },
+  {
+    "id": 199,
+    "category": "継承とポリモーフィズム",
+    "question": "次のメソッド修飾子の組み合わせのうち、コンパイルエラーになるものはどれですか。",
+    "code": "",
+    "options": [
+      "public abstract void play();",
+      "protected abstract void play();",
+      "private abstract void play();",
+      "abstract void play();"
+    ],
+    "answerIndex": 2,
+    "explanation": "抽象（`abstract`）メソッドは、子クラスで「オーバーライドされること」を前提として設計されたメソッドです。そのため、子クラスからアクセスして再定義することが不可能な `private` 修飾子や、オーバーライド自体を禁止する `final` 修飾子、インスタンスに依存しない `static` 修飾子などを `abstract` と同時に付与することは文法上禁止されており、指定するとコンパイルエラーになります。"
+  },
+  {
+    "id": 200,
+    "category": "継承とポリモーフィズム",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "class Parent {\n    Parent() {\n        System.out.print(\"P \");\n        test();\n    }\n    void test() { System.out.print(\"P_test \"); }\n}\nclass Child extends Parent {\n    int value = 100;\n    Child() {\n        // 暗黙の super(); \n        System.out.print(\"C:\" + value + \" \");\n    }\n    void test() { System.out.print(\"C_test:\" + value + \" \"); }\n}\n// 実行部\nParent p = new Child();",
+    "options": [
+      "P P_test C:100 ",
+      "P C_test:0 C:100 ",
+      "P C_test:100 C:100 ",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "難解な初期化順序とポリモーフィズムの問題です。\n1. `new Child()` が呼ばれ、Childコンストラクタの先頭で暗黙の `super()`（Parentコンストラクタ）が実行されます。\n2. `Parent()` の中に入り、まず「P 」が出力されます。\n3. 次に `test()` が呼び出されます。Javaではメソッド呼び出しは動的に解決されるため、親クラスのコンストラクタ内からの呼び出しであっても、実体である `Child` でオーバーライドされた `test()` メソッドが実行されます。\n4. `Child` の `test()` が実行されますが、この時点ではまだ `Child` のインスタンス初期化子やコンストラクタは実行されていないため、`value` フィールドの明示的な初期値 100 は代入されていません。`value` の値はデフォルト値の `0` になっているため、「C_test:0 」が出力されます。\n5. `Parent` のコンストラクタが完了し、`Child` に処理が戻ります。ここで初めて `value = 100` が代入され、Childのコンストラクタが動き「C:100 」が出力されます。\nしたがって出力結果は「P C_test:0 C:100 」となります。"
   }
 ]

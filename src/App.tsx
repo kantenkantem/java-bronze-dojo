@@ -130,6 +130,13 @@ function App() {
     setScreen('quiz')
   }
 
+  // クイズ中断処理
+  const handleQuitQuiz = () => {
+    if (window.confirm('演習を中断してホームに戻りますか？（現在の進捗は保存されません）')) {
+      setScreen('home')
+    }
+  }
+
   // 解答確認ボタン押下
   const handleCheckAnswer = () => {
     if (selectedOption === null) return
@@ -323,7 +330,24 @@ function App() {
       {screen === 'quiz' && currentQuestion && (
         <section className="quiz-screen">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span className="badge">{currentQuestion.category}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="badge">{currentQuestion.category}</span>
+              <button 
+                onClick={handleQuitQuiz}
+                style={{ 
+                  padding: '4px 8px', 
+                  fontSize: '0.75rem', 
+                  background: 'transparent', 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: 'var(--radius-sm)',
+                  color: 'var(--color-error)',
+                  cursor: 'pointer',
+                  fontWeight: '600'
+                }}
+              >
+                中断
+              </button>
+            </div>
             <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: '600' }}>
               問題 {currentIndex + 1} / {currentQuestions.length}
             </span>
