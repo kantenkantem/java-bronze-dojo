@@ -25,8 +25,75 @@ interface QuizSession {
   selectedOption: number | null
   isAnswered: boolean
   sessionResults: { questionId: number, isCorrect: boolean, selectedIndex: number }[]
-  quizMode: 'all' | 'random10' | 'category' | 'review'
+  quizMode: 'all' | 'random10' | 'category' | 'review' | 'bookmark'
   selectedCategory: string
+  quizLimit?: 'all' | '10' | '20'
+}
+
+// 簡易Javaシンタックスハイライターコンポーネント
+function JavaCodeHighlighter({ code }: { code: string }) {
+  if (!code) return null
+
+  const highlightJava = (rawCode: string) => {
+    // HTMLエスケープ
+    let html = rawCode
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+
+    // コメントの一時退避とプレースホルダー化
+    const comments: string[] = []
+    html = html.replace(/(\/\/.*|\/\*[\s\S]*?\*\/)/g, (match) => {
+      comments.push(match)
+      return `___COMMENT_PLACEHOLDER_${comments.length - 1}___`
+    })
+
+    // 文字列リテラルの一時退避とプレースホルダー化
+    const strings: string[] = []
+    html = html.replace(/("[^"\\]*(?:\\.[^"\\]*)*")/g, (match) => {
+      strings.push(match)
+      return `___STRING_PLACEHOLDER_${strings.length - 1}___`
+    })
+
+    // キーワード定義
+    const keywords = [
+      'public', 'protected', 'private', 'class', 'interface', 'abstract', 'implements', 'extends',
+      'void', 'int', 'double', 'float', 'boolean', 'char', 'long', 'short', 'byte',
+      'try', 'catch', 'finally', 'throw', 'throws', 'new', 'return', 'static', 'final',
+      'if', 'else', 'switch', 'case', 'default', 'for', 'while', 'do', 'break', 'continue',
+      'instanceof', 'var', 'super', 'this'
+    ]
+
+    // キーワードを置換 (境界ワード \b を使用)
+    const keywordRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g')
+    html = html.replace(keywordRegex, '<span class="hl-keyword">$1</span>')
+
+    // 注釈 (アノテーション @Override など)
+    html = html.replace(/(@[A-Za-z0-9_]+)/g, '<span class="hl-annotation">$1</span>')
+
+    // 数値リテラル (簡易)
+    html = html.replace(/\b(\d+(?:\.\d+)?(?:[fFLdD])?)\b/g, '<span class="hl-number">$1</span>')
+
+    // 文字列リテラルを復元してクラス付与
+    html = html.replace(/___STRING_PLACEHOLDER_(\d+)___/g, (_, index) => {
+      const idx = parseInt(index, 10)
+      return `<span class="hl-string">${strings[idx]}</span>`
+    })
+
+    // コメントを復元してクラス付与
+    html = html.replace(/___COMMENT_PLACEHOLDER_(\d+)___/g, (_, index) => {
+      const idx = parseInt(index, 10)
+      return `<span class="hl-comment">${comments[idx]}</span>`
+    })
+
+    return html
+  }
+
+  return (
+    <pre className="code-block">
+      <code dangerouslySetInnerHTML={{ __html: highlightJava(code) }} />
+    </pre>
+  )
 }
 
 function App() {
@@ -34,8 +101,9 @@ function App() {
   const [screen, setScreen] = useState<'home' | 'quiz' | 'result' | 'review-list'>('home')
   
   // 出題設定
-  const [quizMode, setQuizMode] = useState<'all' | 'random10' | 'category' | 'review'>('all')
+  const [quizMode, setQuizMode] = useState<'all' | 'random10' | 'category' | 'review' | 'bookmark'>('all')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [quizLimit, setQuizLimit] = useState<'all' | '10' | '20'>('10')
   
   // クイズ実行状態
   const [currentQuestions, setCurrentQuestions] = useState<Question[]>([])
@@ -50,6 +118,7 @@ function App() {
   const [globalHistory, setGlobalHistory] = useState<AnswerHistory[]>([])
 
   // 進行中のセッション
+  const [bookmarks, setBookmarks] = useState<number[]>([])
   const [savedSession, setSavedSession] = useState<QuizSession | null>(null)
 
   // 中断確認モーダルの表示状態
@@ -86,6 +155,14 @@ function App() {
         console.error('Failed to load saved session', e)
       }
     }
+    const savedBookmarksData = localStorage.getItem('java-bronze-dojo-bookmarks')
+    if (savedBookmarksData) {
+      try {
+        setBookmarks(JSON.parse(savedBookmarksData))
+      } catch (e) {
+        console.error('Failed to load bookmarks', e)
+      }
+    }
   }, [])
 
   // クイズ進行状況の自動保存
@@ -98,11 +175,21 @@ function App() {
         isAnswered,
         sessionResults,
         quizMode,
-        selectedCategory
+        selectedCategory,
+        quizLimit
       }
       localStorage.setItem('java-bronze-dojo-current-session', JSON.stringify(session))
     }
-  }, [screen, currentQuestions, currentIndex, selectedOption, isAnswered, sessionResults, quizMode, selectedCategory])
+  }, [screen, currentQuestions, currentIndex, selectedOption, isAnswered, sessionResults, quizMode, selectedCategory, quizLimit])
+
+  // ブックマークのトグルの永続化
+  const toggleBookmark = (id: number) => {
+    setBookmarks(prev => {
+      const next = prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+      localStorage.setItem('java-bronze-dojo-bookmarks', JSON.stringify(next))
+      return next
+    })
+  }
 
   // 履歴の保存
   const saveHistory = (newHistory: AnswerHistory[]) => {
@@ -178,6 +265,9 @@ function App() {
     setSessionResults(savedSession.sessionResults)
     setQuizMode(savedSession.quizMode)
     setSelectedCategory(savedSession.selectedCategory)
+    if (savedSession.quizLimit) {
+      setQuizLimit(savedSession.quizLimit)
+    }
     setScreen('quiz')
   }
 
@@ -201,23 +291,31 @@ function App() {
   }
 
   // クイズの開始処理
-  const startQuiz = () => {
+  const startQuiz = (modeOverride?: 'all' | 'random10' | 'category' | 'review' | 'bookmark', categoryOverride?: string) => {
+    const activeMode = modeOverride || quizMode
+    const activeCategory = categoryOverride !== undefined ? categoryOverride : selectedCategory
+
     let questionsToUse: Question[] = [...questionsData]
 
-    // モード別のフィルタリング・シャッフル
-    if (quizMode === 'category' && selectedCategory) {
-      questionsToUse = questionsToUse.filter(q => q.category === selectedCategory)
-    } else if (quizMode === 'review') {
+    // モード別のフィルタリング
+    if (activeMode === 'category' && activeCategory) {
+      questionsToUse = questionsToUse.filter(q => q.category === activeCategory)
+    } else if (activeMode === 'review') {
       const incorrectIds = getIncorrectQuestionIds(globalHistory)
       questionsToUse = questionsToUse.filter(q => incorrectIds.includes(q.id))
+    } else if (activeMode === 'bookmark') {
+      questionsToUse = questionsToUse.filter(q => bookmarks.includes(q.id))
     }
 
-    if (quizMode === 'random10') {
-      // シャッフルして10問抽出
-      questionsToUse = questionsToUse.sort(() => Math.random() - 0.5).slice(0, 10)
-    } else {
-      // 通常時も問題順をシャッフル
-      questionsToUse = questionsToUse.sort(() => Math.random() - 0.5)
+    // 問題順をシャッフル
+    questionsToUse = questionsToUse.sort(() => Math.random() - 0.5)
+
+    // 出題制限数の適用
+    if (activeMode === 'random10') {
+      questionsToUse = questionsToUse.slice(0, 10)
+    } else if (activeMode !== 'review' && quizLimit !== 'all') {
+      const limitVal = parseInt(quizLimit, 10)
+      questionsToUse = questionsToUse.slice(0, limitVal)
     }
 
     if (questionsToUse.length === 0) {
@@ -493,7 +591,7 @@ function App() {
             <button 
               className="btn btn-primary" 
               style={{ width: '100%', padding: '16px' }}
-              onClick={startQuiz}
+              onClick={() => startQuiz()}
               disabled={(quizMode === 'category' && !selectedCategory) || (quizMode === 'review' && incorrectQuestions.length === 0)}
             >
               演習を開始する

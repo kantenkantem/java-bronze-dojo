@@ -2798,5 +2798,215 @@
     ],
     "answerIndex": 1,
     "explanation": "難解な初期化順序とポリモーフィズムの問題です。\n1. `new Child()` が呼ばれ、Childコンストラクタの先頭で暗黙の `super()`（Parentコンストラクタ）が実行されます。\n2. `Parent()` の中に入り、まず「P 」が出力されます。\n3. 次に `test()` が呼び出されます。Javaではメソッド呼び出しは動的に解決されるため、親クラスのコンストラクタ内からの呼び出しであっても、実体である `Child` でオーバーライドされた `test()` メソッドが実行されます。\n4. `Child` の `test()` が実行されますが、この時点ではまだ `Child` のインスタンス初期化子やコンストラクタは実行されていないため、`value` フィールドの明示的な初期値 100 は代入されていません。`value` の値はデフォルト値の `0` になっているため、「C_test:0 」が出力されます。\n5. `Parent` のコンストラクタが完了し、`Child` に処理が戻ります。ここで初めて `value = 100` が代入され、Childのコンストラクタが動き「C:100 」が出力されます。\nしたがって出力結果は「P C_test:0 C:100 」となります。"
+  },
+  {
+    "id": 201,
+    "category": "例外処理の操作",
+    "question": "次の try-catch 構文のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "try {\n    int[] array = new int[2];\n    array[2] = 10;\n    System.out.print(\"A \");\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.print(\"B \");\n}\nSystem.out.print(\"C \");",
+    "options": [
+      "A C",
+      "B C",
+      "A B C",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "tryブロック内で `array[2] = 10;` が実行された瞬間、配列のインデックス範囲外アクセスにより `ArrayIndexOutOfBoundsException` が発生します。例外が発生すると、それ以降のtryブロック内の処理（`System.out.print(\"A \");`）は実行されず、対応する catch ブロックへ制御が移ります。catchブロック内の処理（`B `）が実行された後、try-catch全体の次の文（`C `）が実行されます。したがって、出力結果は「B C 」になります。"
+  },
+  {
+    "id": 202,
+    "category": "例外処理の操作",
+    "question": "次のコードのうち、コンパイルエラーになる原因として正しいものはどれですか。",
+    "code": "try {\n    // 例外が発生する可能性のある処理\n} catch (Exception e) {\n    System.out.println(\"Exception\");\n} catch (NullPointerException e) {\n    System.out.println(\"NullPointer\");\n}",
+    "options": [
+      "2つの catch ブロックで同じ引数名「e」を使用しているため",
+      "引数なしの catch ブロックを記述していないため",
+      "catch ブロックの順序が誤っており、到達不能な catch ブロックが存在するため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 2,
+    "explanation": "Javaでは、複数の catch ブロックがある場合、発生した例外クラスに適合する最初の catch ブロックが選択されます。`Exception` は `NullPointerException` のスーパークラス（親クラス）であるため、先に `catch (Exception e)` を記述してしまうと、すべての例外がそこで捕捉され、後ろの `catch (NullPointerException e)` には絶対に到達できなくなります。コンパイラはこの到達不能なコードを検出してコンパイルエラーを引き起こします。解決するには、より具体的なサブクラスの例外を先に記述する必要があります。"
+  },
+  {
+    "id": 203,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "try {\n    System.out.print(\"A \");\n    int num = 10 / 0;\n    System.out.print(\"B \");\n} catch (ArithmeticException e) {\n    System.out.print(\"C \");\n} finally {\n    System.out.print(\"D \");\n}\nSystem.out.print(\"E \");",
+    "options": [
+      "A C D E",
+      "A B C D E",
+      "A C D",
+      "A C E"
+    ],
+    "answerIndex": 0,
+    "explanation": "処理の流れは以下の通りです：\n1. tryブロックが開始され、まず「A 」が出力されます。\n2. `10 / 0` により、ゼロ除算による `ArithmeticException` が発生します。以降のtry内の処理（`B `）は実行されません。\n3. `ArithmeticException` を捕捉する catch ブロックが実行され、「C 」が出力されます。\n4. 例外の発生有無に関わらず必ず実行される `finally` ブロックが実行され、「D 」が出力されます。\n5. try-catch-finally全体を抜けた後の文が実行され、「E 」が出力されます。\nしたがって、出力結果は「A C D E 」になります。"
+  },
+  {
+    "id": 204,
+    "category": "例外処理の操作",
+    "question": "次の例外のうち、コンパイラによって検査され、try-catch による捕捉または throws 宣言による伝播が必須となる「チェック例外（検査例外）」はどれですか。",
+    "code": "",
+    "options": [
+      "java.lang.NullPointerException",
+      "java.io.IOException",
+      "java.lang.ArrayIndexOutOfBoundsException",
+      "java.lang.NumberFormatException"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaの例外は、`RuntimeException` を継承する「非チェック例外（実行時例外）」と、それ以外の「チェック例外（検査例外）」に大別されます。`NullPointerException`, `ArrayIndexOutOfBoundsException`, `NumberFormatException` はすべて `RuntimeException` のサブクラスであるため非チェック例外です。一方、`IOException` は `Exception` の直系サブクラスであり、チェック例外に該当するため、コード内で適切にハンドリング（try-catch または throws）しなければコンパイルエラーになります。"
+  },
+  {
+    "id": 205,
+    "category": "例外処理の操作",
+    "question": "次のコードのうち、コンパイルエラーが発生する原因として正しいものはどれですか。",
+    "code": "class Test {\n    void check() throws java.io.IOException {\n        throw new java.io.IOException();\n    }\n    void run() {\n        check();\n    }\n}",
+    "options": [
+      "check メソッドで例外をスローしているにも関わらず、戻り値型が void になっているため",
+      "run メソッド内で、チェック例外である IOException をスローし得る check メソッドを呼び出しているが、適切な例外処理（try-catch または throws 宣言）を行っていないため",
+      "run メソッド内に try-catch ブロックがないため、どんな場合でもコンパイルエラーになる",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 1,
+    "explanation": "`IOException` はコンパイラによるチェック対象となる「チェック例外」です。`check` メソッドは宣言で `throws IOException` を明示しているため、このメソッドを呼び出す `run` メソッド側は、(1) 呼び出し部を `try-catch` で囲んで例外を処理するか、または (2) 自身もメソッド宣言に `throws IOException` を追加して例外を上流へ投げる必要があります。このいずれの処理も行っていないため、`run` メソッドの記述箇所でコンパイルエラーになります。"
+  },
+  {
+    "id": 206,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの結果として、正しいものはどれですか。",
+    "code": "try {\n    throw new NullPointerException(\"Error\");\n} catch (RuntimeException e) {\n    System.out.println(e.getMessage());\n}",
+    "options": [
+      "「Error」が出力される",
+      "例外がキャッチされず、プログラムが強制終了する",
+      "throw キーワードは Exception 以外のクラスを投げられないためコンパイルエラーになる",
+      "「RuntimeException」が出力される"
+    ],
+    "answerIndex": 0,
+    "explanation": "`throw` キーワードを使用すると、意図的に例外オブジェクトをスローできます。スローされた `NullPointerException` は `RuntimeException` のサブクラスです。catchブロックの型が `RuntimeException` であるため、多態性（ポリモーフィズム）により正しくキャッチされます。catchブロック内では `e.getMessage()` が呼ばれ、コンストラクタに渡されたメッセージ文字列「Error」が出力されます。"
+  },
+  {
+    "id": 207,
+    "category": "例外処理の操作",
+    "question": "Javaの例外クラスの継承構造に関する説明のうち、正しい記述はどれですか。",
+    "code": "",
+    "options": [
+      "すべての例外クラス（Exception）は、直接 RuntimeException を継承している。",
+      "Error クラスと Exception クラスは、どちらも Throwable クラスを継承している。",
+      "チェック例外は、すべて RuntimeException クラスのサブクラスである。",
+      "RuntimeException は Exception クラスを継承していない独立したクラスである。"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaの重大なエラーや例外を表す最上位クラスは `Throwable` です。この `Throwable` クラスの下に、深刻なプログラムの継続不能エラーを示す `Error` クラスと、プログラムが対処すべき一般的な例外を示す `Exception` クラスの2つが配置されています。`RuntimeException` は `Exception` クラスのサブクラスであり、この配下の例外が「非チェック例外」、これ以外の Exception配下が「チェック例外」に分類されます。"
+  },
+  {
+    "id": 208,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "String str = null;\ntry {\n    if (str.equals(\"\")) {\n        System.out.print(\"A \");\n    }\n} catch (NullPointerException e) {\n    System.out.print(\"B \");\n} finally {\n    System.out.print(\"C \");\n}",
+    "options": [
+      "A B C",
+      "B C",
+      "C",
+      "実行時に例外がキャッチされずプログラムがクラッシュする"
+    ],
+    "answerIndex": 1,
+    "explanation": "変数 `str` の値は `null` です。`null` であるオブジェクト参照からインスタンスメソッド `.equals(...)` を呼び出そうとすると、Java仮想マシンによって実行時に `NullPointerException` 例外が自動的にスローされます。この例外は `catch (NullPointerException e)` によって適切に捕捉され、「B 」が出力されます。その後、必ず実行される `finally` ブロックが走り「C 」が出力されます。よって結果は「B C 」となります。"
+  },
+  {
+    "id": 209,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "try {\n    int[] arr = {1, 2};\n    int val = arr[2];\n    System.out.print(\"Success \");\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.print(\"Out \");\n} catch (IndexOutOfBoundsException e) {\n    System.out.print(\"Index \");\n}",
+    "options": [
+      "Success",
+      "Out",
+      "Index",
+      "Out Index"
+    ],
+    "answerIndex": 1,
+    "explanation": "配列 `arr` の有効なインデックスは 0 と 1 です。`arr[2]` にアクセスしようとすると、実行時に `ArrayIndexOutOfBoundsException` が発生します。catchブロックには `ArrayIndexOutOfBoundsException` とその親クラスである `IndexOutOfBoundsException` の2つがありますが、記述されている順番に従って最初に合致した `ArrayIndexOutOfBoundsException` ブロックが実行され、「Out 」が出力されます。一度例外がキャッチされると、それ以降の catch ブロックは実行されません。"
+  },
+  {
+    "id": 210,
+    "category": "例外処理の操作",
+    "question": "次の2つの計算式 (1), (2) を実行した際、それぞれ何が起こりますか。",
+    "code": "// (1)\nint x = 10 / 0;\n// (2)\ndouble y = 10.0 / 0.0;",
+    "options": [
+      "(1), (2) ともに実行時に ArithmeticException が発生する",
+      "(1) は ArithmeticException が発生し、(2) は例外が発生せず「Infinity」という値になる",
+      "(1) は例外が発生せず「0」となり、(2) は ArithmeticException が発生する",
+      "(1), (2) ともにコンパイルエラーになる"
+    ],
+    "answerIndex": 1,
+    "explanation": "Javaにおいて、整数型のゼロ除算（`10 / 0`）を実行すると、ランタイムは `ArithmeticException` をスローします。しかし、浮動小数点数（`double` や `float`）におけるゼロ除算（`10.0 / 0.0`）は、Javaの言語仕様およびIEEE 754規格に基づき、例外を発生させず、正の無限大を表す定数 `Double.POSITIVE_INFINITY` (出力は `Infinity`) と評価されます。この違いは Bronze 試験でも頻出です。"
+  },
+  {
+    "id": 211,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの挙動として、正しいものはどれですか。",
+    "code": "Object obj = \"Java\";\ntry {\n    Integer num = (Integer) obj;\n    System.out.print(\"Success \");\n} catch (ClassCastException e) {\n    System.out.print(\"CastError \");\n}",
+    "options": [
+      "「Success 」が出力される",
+      "「CastError 」が出力される",
+      "Object型からInteger型へのキャスト式自体がコンパイルエラーになる",
+      "例外が発生するbutキャッチされずプログラムが終了する"
+    ],
+    "answerIndex": 1,
+    "explanation": "変数 `obj` の静的型（宣言された型）は `Object` ですが、実際に参照している実体は `String` インスタンス（\"Java\"）です。これを、継承関係において互換性のない `Integer` 型へキャストしようとすると、実行時にキャストの安全性を確認したランタイムによって `ClassCastException` がスローされます。この例外は catch ブロックで正常に捕捉され、「CastError 」が出力されます。なお、コンパイラは `Object` ➔ `Integer` へのキャスト自体は文法上有効とみなすためコンパイルは通過します。"
+  },
+  {
+    "id": 212,
+    "category": "例外処理の操作",
+    "question": "次のコードを実行したときの出力結果として、正しいものはどれですか。",
+    "code": "try {\n    int val = Integer.parseInt(\"10a\");\n    System.out.print(\"Ok \");\n} catch (NumberFormatException e) {\n    System.out.print(\"FormatError \");\n} catch (IllegalArgumentException e) {\n    System.out.print(\"ArgError \");\n}",
+    "options": [
+      "Ok",
+      "FormatError",
+      "ArgError",
+      "コンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "`Integer.parseInt(String)` メソッドは、引数の文字列を解析して整数値に変換しますが、渡された文字列が整数として解析できない形式（この場合は「10a」という文字を含む）である場合、`NumberFormatException` をスローします。この例外は最初の catch ブロックに合致するため、そこでキャッチされ、「FormatError 」が出力されます。なお、`NumberFormatException` は `IllegalArgumentException` のサブクラスです。"
+  },
+  {
+    "id": 213,
+    "category": "例外処理の操作",
+    "question": "次のコードのうち、コンパイルエラーが発生する原因として正しいものはどれですか。",
+    "code": "try {\n    int num = 100;\n    System.out.print(num);\n} catch (Exception e) {\n    num = 0;\n}",
+    "options": [
+      "catch ブロックの中で変数 num が参照されているが、そのスコープ外であるため",
+      "try ブロック内の変数 num が final で宣言されていないため",
+      "catch ブロックで Exception クラスという汎用的な例外を指定しているため",
+      "コンパイルエラーは発生しない"
+    ],
+    "answerIndex": 0,
+    "explanation": "try ブロックの `{ ... }` 内部で宣言された変数 `num` は、その try ブロック内でのみ有効なローカル変数です。そのため、tryブロックの外側である catch ブロックの中から `num` を参照（代入など）しようとすると、スコープの範囲外であるため「変数 num を解決できません」としてコンパイルエラーが発生します。"
+  },
+  {
+    "id": 214,
+    "category": "例外処理の操作",
+    "question": "次のメソッドを実行して呼び出し元に返される戻り値として、正しいものはどれですか。",
+    "code": "int calculate() {\n    try {\n        return 10;\n    } finally {\n        return 20;\n    }\n}",
+    "options": [
+      "10",
+      "20",
+      "30 (10 と 20 の合計値)",
+      "finally に return があるためコンパイルエラーが発生する"
+    ],
+    "answerIndex": 1,
+    "explanation": "tryブロック内で `return 10;` が実行されようとした際、制御は呼び出し元に戻る前にまず `finally` ブロックへと移ります。もし `finally` ブロック内で `return 20;` のように別の return 文が実行された場合、tryブロックの return は破棄され、finally側の return 文の値（`20`）が最終的なメソッドの戻り値として返されます。これは Java の言語仕様による動作です。"
+  },
+  {
+    "id": 215,
+    "category": "例外処理の操作",
+    "question": "次の throws 宣言に関するメソッド定義のうち、文法的に正しいものはどれですか。",
+    "code": "",
+    "options": [
+      "void perform() throw java.io.IOException {}",
+      "void perform() throws java.io.IOException, java.sql.SQLException {}",
+      "throws java.io.IOException void perform() {}",
+      "void perform() throws java.io.IOException & java.sql.SQLException {}"
+    ],
+    "answerIndex": 1,
+    "explanation": "メソッド宣言で呼び出し元に例外処理を要求するキーワードは複数形の `throws` です（単数形の `throw` は例外オブジェクトを投げる命令文で使用します）。複数の例外を指定する場合は、カンマ `,` で区切って列挙します。記述する位置は、メソッド引数リストの直後、かつブロック開始 `{` の手前でなければなりません。したがって、カンマ区切りで throws を指定している2番目の選択肢が正しいです。"
   }
 ]
