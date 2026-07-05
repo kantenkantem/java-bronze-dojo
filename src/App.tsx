@@ -115,11 +115,41 @@ function App() {
   const [sessionResults, setSessionResults] = useState<{ questionId: number, isCorrect: boolean, selectedIndex: number }[]>([])
   
   // 永続化された学習履歴（LocalStorage）
-  const [globalHistory, setGlobalHistory] = useState<AnswerHistory[]>([])
+  const [globalHistory, setGlobalHistory] = useState<AnswerHistory[]>(() => {
+    const savedHistoryData = localStorage.getItem('java-bronze-dojo-history')
+    if (savedHistoryData) {
+      try {
+        return JSON.parse(savedHistoryData)
+      } catch (e) {
+        console.error('Failed to load history', e)
+      }
+    }
+    return []
+  })
 
   // 進行中のセッション
-  const [bookmarks, setBookmarks] = useState<number[]>([])
-  const [savedSession, setSavedSession] = useState<QuizSession | null>(null)
+  const [bookmarks, setBookmarks] = useState<number[]>(() => {
+    const savedBookmarksData = localStorage.getItem('java-bronze-dojo-bookmarks')
+    if (savedBookmarksData) {
+      try {
+        return JSON.parse(savedBookmarksData)
+      } catch (e) {
+        console.error('Failed to load bookmarks', e)
+      }
+    }
+    return []
+  })
+  const [savedSession, setSavedSession] = useState<QuizSession | null>(() => {
+    const savedSessionData = localStorage.getItem('java-bronze-dojo-current-session')
+    if (savedSessionData) {
+      try {
+        return JSON.parse(savedSessionData)
+      } catch (e) {
+        console.error('Failed to load saved session', e)
+      }
+    }
+    return null
+  })
 
   // 中断確認モーダルの表示状態
   const [showQuitConfirm, setShowQuitConfirm] = useState<boolean>(false)
@@ -136,34 +166,6 @@ function App() {
 
   // 全カテゴリの抽出
   const categories = Array.from(new Set(questionsData.map(q => q.category)))
-
-  // 初回読み込み時に履歴と進行中セッションをロード
-  useEffect(() => {
-    const savedHistoryData = localStorage.getItem('java-bronze-dojo-history')
-    if (savedHistoryData) {
-      try {
-        setGlobalHistory(JSON.parse(savedHistoryData))
-      } catch (e) {
-        console.error('Failed to load history', e)
-      }
-    }
-    const savedSessionData = localStorage.getItem('java-bronze-dojo-current-session')
-    if (savedSessionData) {
-      try {
-        setSavedSession(JSON.parse(savedSessionData))
-      } catch (e) {
-        console.error('Failed to load saved session', e)
-      }
-    }
-    const savedBookmarksData = localStorage.getItem('java-bronze-dojo-bookmarks')
-    if (savedBookmarksData) {
-      try {
-        setBookmarks(JSON.parse(savedBookmarksData))
-      } catch (e) {
-        console.error('Failed to load bookmarks', e)
-      }
-    }
-  }, [])
 
   // クイズ進行状況の自動保存
   useEffect(() => {
@@ -230,7 +232,7 @@ function App() {
           } else {
             alert('無効なファイル形式です。')
           }
-        } catch (err) {
+        } catch {
           alert('ファイルの読み込み中にエラーが発生しました。')
         }
       }
@@ -570,6 +572,30 @@ function App() {
                   </div>
                 </div>
               </label>
+
+              <label className={`option-item ${quizMode === 'bookmark' ? 'selected' : ''} ${bookmarks.length === 0 ? 'disabled' : ''}`}>
+                <input 
+                  type="radio" 
+                  name="quizMode" 
+                  checked={quizMode === 'bookmark'} 
+                  onChange={() => bookmarks.length > 0 && setQuizMode('bookmark')}
+                  disabled={bookmarks.length === 0}
+                  style={{ display: 'none' }}
+                />
+                <div className="option-text">
+                  <strong style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    ブックマーク演習
+                    {bookmarks.length > 0 && (
+                      <span className="badge" style={{ margin: 0, padding: '2px 8px', background: 'var(--color-warning)', color: '#ffffff' }}>
+                        {bookmarks.length}問
+                      </span>
+                    )}
+                  </strong>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                    ブックマークした問題のみを集中的に演習します。
+                  </div>
+                </div>
+              </label>
             </div>
 
             {quizMode === 'category' && (
@@ -663,6 +689,24 @@ function App() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="badge">{currentQuestion.category}</span>
               <button 
+                onClick={() => toggleBookmark(currentQuestion.id)}
+                style={{ 
+                  padding: '4px 8px', 
+                  fontSize: '0.75rem', 
+                  background: bookmarks.includes(currentQuestion.id) ? 'var(--color-warning-light)' : 'transparent', 
+                  border: '1px solid ' + (bookmarks.includes(currentQuestion.id) ? 'var(--color-warning)' : 'var(--border-color)'), 
+                  borderRadius: 'var(--radius-sm)',
+                  color: bookmarks.includes(currentQuestion.id) ? 'var(--color-warning)' : 'var(--text-secondary)',
+                  cursor: 'pointer',
+                  fontWeight: '600',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
+              >
+                {bookmarks.includes(currentQuestion.id) ? '★ ブックマーク中' : '☆ ブックマーク'}
+              </button>
+              <button 
                 onClick={handleQuitQuiz}
                 style={{ 
                   padding: '4px 8px', 
@@ -696,9 +740,7 @@ function App() {
 
           {/* Javaコードの表示（ある場合のみ） */}
           {currentQuestion.code && (
-            <pre className="code-block">
-              <code>{currentQuestion.code}</code>
-            </pre>
+            <JavaCodeHighlighter code={currentQuestion.code} />
           )}
 
           {/* 選択肢リスト */}
@@ -940,9 +982,9 @@ function App() {
                         </div>
 
                         {q.code && (
-                          <pre className="code-block" style={{ marginBottom: '16px' }}>
-                            <code>{q.code}</code>
-                          </pre>
+                          <div style={{ marginBottom: '16px' }}>
+                            <JavaCodeHighlighter code={q.code} />
+                          </div>
                         )}
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>

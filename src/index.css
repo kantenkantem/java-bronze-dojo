@@ -14,6 +14,8 @@
   --color-success-light: rgba(16, 185, 129, 0.1);
   --color-error: #ef4444; /* Rose */
   --color-error-light: rgba(239, 68, 68, 0.1);
+  --color-warning: #f59e0b; /* Amber/Yellow for bookmarks */
+  --color-warning-light: rgba(245, 158, 11, 0.1);
   
   --border-color: #e2e8f0;
   --code-bg: #1e293b;
@@ -56,6 +58,8 @@
     --color-success-light: rgba(52, 211, 153, 0.15);
     --color-error: #f87171;
     --color-error-light: rgba(248, 113, 113, 0.15);
+    --color-warning: #fbbf24;
+    --color-warning-light: rgba(251, 191, 36, 0.15);
     
     --border-color: #334155;
     --code-bg: #0b0f19;
