@@ -255,6 +255,25 @@ pre.code-block {
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* Java Syntax Highlighting */
+.hl-keyword {
+  color: #ff7b72; /* keywords: pink/red */
+  font-weight: 700;
+}
+.hl-annotation {
+  color: #d2a8ff; /* annotations: purple */
+}
+.hl-number {
+  color: #79c0ff; /* numbers: light blue */
+}
+.hl-string {
+  color: #a5d6ff; /* strings: cyan/blue */
+}
+.hl-comment {
+  color: #8b949e; /* comments: grey */
+  font-style: italic;
+}
+
 /* Options container */
 .options-list {
   display: flex;
