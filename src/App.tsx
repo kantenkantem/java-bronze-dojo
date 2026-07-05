@@ -425,7 +425,11 @@ function App() {
 
   return (
     <main className="app-card">
-      <h1>Java Bronze 過去問道場</h1>
+      <div className="brand-header">
+        <span className="brand-badge">JAVA SE BRONZE</span>
+        <h1 className="brand-title">過去問道場</h1>
+        <p className="brand-subtitle">徹底攻略問題集 ＆ 模擬試験プラットフォーム</p>
+      </div>
 
       {/* 1. ホーム画面 */}
       {screen === 'home' && (
