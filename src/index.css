@@ -370,3 +370,39 @@ pre.code-block {
     transform: translateY(0);
   }
 }
+
+/* Disabled option item */
+.option-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+/* Resume card styles */
+.resume-card {
+  border-left: 5px solid var(--color-primary) !important;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.resume-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Review screen list adjustments */
+.review-list-screen {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Modal Fade-in Keyframe */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

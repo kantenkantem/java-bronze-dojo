@@ -19,12 +19,22 @@ interface AnswerHistory {
   timestamp: number
 }
 
+interface QuizSession {
+  currentQuestions: Question[]
+  currentIndex: number
+  selectedOption: number | null
+  isAnswered: boolean
+  sessionResults: { questionId: number, isCorrect: boolean, selectedIndex: number }[]
+  quizMode: 'all' | 'random10' | 'category' | 'review'
+  selectedCategory: string
+}
+
 function App() {
-  // 画面遷移状態 ('home' | 'quiz' | 'result')
-  const [screen, setScreen] = useState<'home' | 'quiz' | 'result'>('home')
+  // 画面遷移状態 ('home' | 'quiz' | 'result' | 'review-list')
+  const [screen, setScreen] = useState<'home' | 'quiz' | 'result' | 'review-list'>('home')
   
   // 出題設定
-  const [quizMode, setQuizMode] = useState<'all' | 'random10' | 'category'>('all')
+  const [quizMode, setQuizMode] = useState<'all' | 'random10' | 'category' | 'review'>('all')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
   
   // クイズ実行状態
@@ -39,20 +49,60 @@ function App() {
   // 永続化された学習履歴（LocalStorage）
   const [globalHistory, setGlobalHistory] = useState<AnswerHistory[]>([])
 
+  // 進行中のセッション
+  const [savedSession, setSavedSession] = useState<QuizSession | null>(null)
+
+  // 中断確認モーダルの表示状態
+  const [showQuitConfirm, setShowQuitConfirm] = useState<boolean>(false)
+
+  // 復習画面のアコーディオン開閉状態
+  const [expandedQuestions, setExpandedQuestions] = useState<Record<number, boolean>>({})
+
+  const toggleExpand = (id: number) => {
+    setExpandedQuestions(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }))
+  }
+
   // 全カテゴリの抽出
   const categories = Array.from(new Set(questionsData.map(q => q.category)))
 
-  // 初回読み込み時に履歴をロード
+  // 初回読み込み時に履歴と進行中セッションをロード
   useEffect(() => {
-    const saved = localStorage.getItem('java-bronze-dojo-history')
-    if (saved) {
+    const savedHistoryData = localStorage.getItem('java-bronze-dojo-history')
+    if (savedHistoryData) {
       try {
-        setGlobalHistory(JSON.parse(saved))
+        setGlobalHistory(JSON.parse(savedHistoryData))
       } catch (e) {
         console.error('Failed to load history', e)
       }
     }
+    const savedSessionData = localStorage.getItem('java-bronze-dojo-current-session')
+    if (savedSessionData) {
+      try {
+        setSavedSession(JSON.parse(savedSessionData))
+      } catch (e) {
+        console.error('Failed to load saved session', e)
+      }
+    }
   }, [])
+
+  // クイズ進行状況の自動保存
+  useEffect(() => {
+    if (screen === 'quiz' && currentQuestions.length > 0) {
+      const session: QuizSession = {
+        currentQuestions,
+        currentIndex,
+        selectedOption,
+        isAnswered,
+        sessionResults,
+        quizMode,
+        selectedCategory
+      }
+      localStorage.setItem('java-bronze-dojo-current-session', JSON.stringify(session))
+    }
+  }, [screen, currentQuestions, currentIndex, selectedOption, isAnswered, sessionResults, quizMode, selectedCategory])
 
   // 履歴の保存
   const saveHistory = (newHistory: AnswerHistory[]) => {
@@ -100,6 +150,56 @@ function App() {
     }
   }
 
+  // 間違えた問題（最新の解答が不正解のもの）のID一覧を取得
+  const getIncorrectQuestionIds = (history: AnswerHistory[]): number[] => {
+    const latestResults = new Map<number, boolean>()
+    for (const record of history) {
+      if (!latestResults.has(record.questionId)) {
+        latestResults.set(record.questionId, record.isCorrect)
+      }
+    }
+    
+    const incorrectIds: number[] = []
+    latestResults.forEach((isCorrect, questionId) => {
+      if (!isCorrect) {
+        incorrectIds.push(questionId)
+      }
+    })
+    return incorrectIds
+  }
+
+  // 続きから再開する
+  const resumeQuiz = () => {
+    if (!savedSession) return
+    setCurrentQuestions(savedSession.currentQuestions)
+    setCurrentIndex(savedSession.currentIndex)
+    setSelectedOption(savedSession.selectedOption)
+    setIsAnswered(savedSession.isAnswered)
+    setSessionResults(savedSession.sessionResults)
+    setQuizMode(savedSession.quizMode)
+    setSelectedCategory(savedSession.selectedCategory)
+    setScreen('quiz')
+  }
+
+  // 進行中セッションを破棄する
+  const deleteSavedSession = () => {
+    if (window.confirm('進行中の演習データを破棄しますか？')) {
+      localStorage.removeItem('java-bronze-dojo-current-session')
+      setSavedSession(null)
+    }
+  }
+
+  // 間違えた問題リストから除外する（理解したとして正解履歴を追加）
+  const handleRemoveFromReview = (questionId: number, category: string) => {
+    const newRecord: AnswerHistory = {
+      questionId,
+      category,
+      isCorrect: true,
+      timestamp: Date.now()
+    }
+    saveHistory([newRecord, ...globalHistory])
+  }
+
   // クイズの開始処理
   const startQuiz = () => {
     let questionsToUse: Question[] = [...questionsData]
@@ -107,6 +207,9 @@ function App() {
     // モード別のフィルタリング・シャッフル
     if (quizMode === 'category' && selectedCategory) {
       questionsToUse = questionsToUse.filter(q => q.category === selectedCategory)
+    } else if (quizMode === 'review') {
+      const incorrectIds = getIncorrectQuestionIds(globalHistory)
+      questionsToUse = questionsToUse.filter(q => incorrectIds.includes(q.id))
     }
 
     if (quizMode === 'random10') {
@@ -122,6 +225,10 @@ function App() {
       return
     }
 
+    // 新しく開始するため、既存の進行中セッションがあれば破棄/上書き
+    localStorage.removeItem('java-bronze-dojo-current-session')
+    setSavedSession(null)
+
     setCurrentQuestions(questionsToUse)
     setCurrentIndex(0)
     setSelectedOption(null)
@@ -132,9 +239,28 @@ function App() {
 
   // クイズ中断処理
   const handleQuitQuiz = () => {
-    if (window.confirm('演習を中断してホームに戻りますか？（現在の進捗は保存されません）')) {
-      setScreen('home')
+    setShowQuitConfirm(true)
+  }
+
+  // 中断の確定
+  const confirmQuitQuiz = () => {
+    const session: QuizSession = {
+      currentQuestions,
+      currentIndex,
+      selectedOption,
+      isAnswered,
+      sessionResults,
+      quizMode,
+      selectedCategory
     }
+    setSavedSession(session)
+    setShowQuitConfirm(false)
+    setScreen('home')
+  }
+
+  // 中断のキャンセル
+  const cancelQuitQuiz = () => {
+    setShowQuitConfirm(false)
   }
 
   // 解答確認ボタン押下
@@ -170,6 +296,8 @@ function App() {
       setSelectedOption(null)
       setIsAnswered(false)
     } else {
+      localStorage.removeItem('java-bronze-dojo-current-session')
+      setSavedSession(null)
       setScreen('result')
     }
   }
@@ -178,6 +306,10 @@ function App() {
   const totalAnswers = globalHistory.length
   const correctAnswers = globalHistory.filter(h => h.isCorrect).length
   const totalAccuracy = totalAnswers > 0 ? Math.round((correctAnswers / totalAnswers) * 100) : 0
+
+  // 間違えた問題の抽出
+  const incorrectQuestionIds = getIncorrectQuestionIds(globalHistory)
+  const incorrectQuestions = questionsData.filter(q => incorrectQuestionIds.includes(q.id))
 
   // 分野別正解率の計算
   const categoryStats = categories.map(cat => {
@@ -199,6 +331,28 @@ function App() {
       {screen === 'home' && (
         <section className="home-screen">
           <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>学習ダッシュボード</h2>
+
+          {savedSession && (
+            <div className="resume-card" style={{ marginBottom: '24px', padding: '20px', background: 'var(--color-primary-light)', border: '1px solid var(--color-primary)', borderRadius: 'var(--radius-md)', animation: 'slideIn 0.3s ease-out' }}>
+              <h3 style={{ margin: '0 0 8px 0', fontSize: '1.1rem', color: 'var(--color-primary)', fontWeight: '700' }}>進行中の演習があります</h3>
+              <p style={{ margin: '0 0 16px 0', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                前回の演習が途中で終了しています。<br />
+                <strong>モード:</strong> {
+                  savedSession.quizMode === 'all' ? '全問題シャッフル' :
+                  savedSession.quizMode === 'random10' ? '模擬演習 (10問)' :
+                  savedSession.quizMode === 'category' ? `分野別 (${savedSession.selectedCategory})` : '苦手克服'
+                } / <strong>進捗:</strong> 問 {savedSession.currentIndex + 1} / {savedSession.currentQuestions.length}
+              </p>
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.9rem' }} onClick={resumeQuiz}>
+                  続きから再開する
+                </button>
+                <button className="btn btn-secondary" style={{ padding: '10px 20px', fontSize: '0.9rem', color: 'var(--color-error)' }} onClick={deleteSavedSession}>
+                  進捗を削除
+                </button>
+              </div>
+            </div>
+          )}
           
           <div className="grid-stats">
             <div className="stat-box">
@@ -228,6 +382,18 @@ function App() {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {incorrectQuestions.length > 0 && (
+            <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+              <button 
+                className="btn btn-secondary" 
+                style={{ width: '100%', padding: '14px', borderColor: 'var(--color-error)', color: 'var(--color-error)', background: 'var(--color-error-light)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+                onClick={() => setScreen('review-list')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>⚠️</span> 間違えた問題を確認・復習する ({incorrectQuestions.length}問)
+              </button>
             </div>
           )}
 
@@ -282,6 +448,30 @@ function App() {
                   </div>
                 </div>
               </label>
+
+              <label className={`option-item ${quizMode === 'review' ? 'selected' : ''} ${incorrectQuestions.length === 0 ? 'disabled' : ''}`}>
+                <input 
+                  type="radio" 
+                  name="quizMode" 
+                  checked={quizMode === 'review'} 
+                  onChange={() => incorrectQuestions.length > 0 && setQuizMode('review')}
+                  disabled={incorrectQuestions.length === 0}
+                  style={{ display: 'none' }}
+                />
+                <div className="option-text">
+                  <strong style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    苦手克服 (間違えた問題のみ)
+                    {incorrectQuestions.length > 0 && (
+                      <span className="badge" style={{ margin: 0, padding: '2px 8px', background: 'var(--color-error)', color: '#ffffff' }}>
+                        {incorrectQuestions.length}問
+                      </span>
+                    )}
+                  </strong>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                    過去に間違えたままで、まだ正解していない問題を集中的に演習します。
+                  </div>
+                </div>
+              </label>
             </div>
 
             {quizMode === 'category' && (
@@ -304,7 +494,7 @@ function App() {
               className="btn btn-primary" 
               style={{ width: '100%', padding: '16px' }}
               onClick={startQuiz}
-              disabled={quizMode === 'category' && !selectedCategory}
+              disabled={(quizMode === 'category' && !selectedCategory) || (quizMode === 'review' && incorrectQuestions.length === 0)}
             >
               演習を開始する
             </button>
@@ -329,6 +519,48 @@ function App() {
       {/* 2. クイズ画面 */}
       {screen === 'quiz' && currentQuestion && (
         <section className="quiz-screen">
+          {showQuitConfirm && (
+            <div className="modal-overlay" style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              background: 'rgba(15, 23, 42, 0.65)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 9999,
+              backdropFilter: 'blur(4px)',
+              animation: 'fadeIn 0.2s ease-out'
+            }}>
+              <div className="modal-content" style={{
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-color)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '32px',
+                maxWidth: '400px',
+                width: '90%',
+                boxShadow: 'var(--shadow-lg)',
+                animation: 'slideIn 0.2s ease-out',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ margin: '0 0 12px 0', fontSize: '1.2rem', color: 'var(--text-primary)', fontWeight: '800' }}>演習の中断</h3>
+                <p style={{ margin: '0 0 24px 0', fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                  演習を中断してホームに戻りますか？<br />
+                  <strong>現在の進捗は保存され、後で続きから再開できます。</strong>
+                </p>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <button className="btn btn-primary" style={{ flex: 1, padding: '12px' }} onClick={confirmQuitQuiz}>
+                    はい (中断する)
+                  </button>
+                  <button className="btn btn-secondary" style={{ flex: 1, padding: '12px' }} onClick={cancelQuitQuiz}>
+                    いいえ (続ける)
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="badge">{currentQuestion.category}</span>
@@ -501,6 +733,185 @@ function App() {
           >
             ダッシュボードに戻る
           </button>
+        </section>
+      )}
+
+      {/* 4. 間違えた問題の復習画面 */}
+      {screen === 'review-list' && (
+        <section className="review-list-screen" style={{ animation: 'slideIn 0.3s ease-out' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <h2 style={{ margin: 0 }}>間違えた問題の復習 ({incorrectQuestions.length}問)</h2>
+            <button 
+              className="btn btn-secondary" 
+              style={{ padding: '8px 16px', fontSize: '0.9rem' }}
+              onClick={() => setScreen('home')}
+            >
+              閉じる
+            </button>
+          </div>
+
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '20px' }}>
+            過去に間違えた問題の一覧です。アコーディオンを展開して解説を確認したり、理解した問題は「リストから除外」ボタンで一覧から消去できます。
+          </p>
+
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+            <button 
+              className="btn btn-primary" 
+              style={{ flex: 1, padding: '12px' }}
+              onClick={() => {
+                setQuizMode('review')
+                startQuiz()
+              }}
+              disabled={incorrectQuestions.length === 0}
+            >
+              これらの問題を解き直す
+            </button>
+            <button 
+              className="btn btn-secondary" 
+              style={{ padding: '12px' }}
+              onClick={() => {
+                const allExpanded: Record<number, boolean> = {}
+                incorrectQuestions.forEach(q => {
+                  allExpanded[q.id] = true
+                })
+                setExpandedQuestions(allExpanded)
+              }}
+            >
+              すべて展開
+            </button>
+            <button 
+              className="btn btn-secondary" 
+              style={{ padding: '12px' }}
+              onClick={() => setExpandedQuestions({})}
+            >
+              すべて折りたたむ
+            </button>
+          </div>
+
+          {incorrectQuestions.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-secondary)' }}>
+              現在、間違えた問題はありません！素晴らしい！
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {incorrectQuestions.map((q, idx) => {
+                const isExpanded = !!expandedQuestions[q.id]
+                return (
+                  <div 
+                    key={q.id} 
+                    style={{ 
+                      border: '1px solid var(--border-color)', 
+                      borderRadius: 'var(--radius-md)', 
+                      background: 'var(--bg-secondary)',
+                      overflow: 'hidden',
+                      boxShadow: 'var(--shadow-sm)'
+                    }}
+                  >
+                    {/* アコーディオンヘッダー */}
+                    <div 
+                      onClick={() => toggleExpand(q.id)}
+                      style={{ 
+                        padding: '16px 20px', 
+                        background: 'var(--bg-primary)', 
+                        cursor: 'pointer',
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center',
+                        userSelect: 'none'
+                      }}
+                    >
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span className="badge" style={{ margin: 0 }}>{q.category}</span>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>ID: #{q.id}</span>
+                        </div>
+                        <div style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)', paddingRight: '12px' }}>
+                          {idx + 1}. {q.question.length > 60 ? q.question.substring(0, 60) + '...' : q.question}
+                        </div>
+                      </div>
+                      <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+                        ▶
+                      </span>
+                    </div>
+
+                    {/* アコーディオンコンテンツ */}
+                    {isExpanded && (
+                      <div style={{ padding: '20px', borderTop: '1px solid var(--border-color)', background: 'var(--bg-secondary)', animation: 'slideIn 0.2s ease-out' }}>
+                        <div style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: '16px', whiteSpace: 'pre-wrap' }}>
+                          {q.question}
+                        </div>
+
+                        {q.code && (
+                          <pre className="code-block" style={{ marginBottom: '16px' }}>
+                            <code>{q.code}</code>
+                          </pre>
+                        )}
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                          {q.options.map((option, oIdx) => {
+                            const isCorrect = oIdx === q.answerIndex
+                            return (
+                              <div 
+                                key={oIdx}
+                                style={{ 
+                                  padding: '12px 16px', 
+                                  borderRadius: 'var(--radius-sm)', 
+                                  border: `1px solid ${isCorrect ? 'var(--color-success)' : 'var(--border-color)'}`,
+                                  background: isCorrect ? 'var(--color-success-light)' : 'var(--bg-primary)',
+                                  fontSize: '0.9rem',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '12px'
+                                }}
+                              >
+                                <span style={{ 
+                                  display: 'inline-flex', 
+                                  alignItems: 'center', 
+                                  justifyContent: 'center',
+                                  width: '24px', 
+                                  height: '24px', 
+                                  borderRadius: '50%', 
+                                  background: isCorrect ? 'var(--color-success)' : 'var(--border-color)',
+                                  color: isCorrect ? '#ffffff' : 'var(--text-secondary)',
+                                  fontWeight: '700',
+                                  fontSize: '0.8rem'
+                                }}>
+                                  {String.fromCharCode(65 + oIdx)}
+                                </span>
+                                <span style={{ color: isCorrect ? 'var(--text-primary)' : 'var(--text-secondary)', fontWeight: isCorrect ? '600' : 'normal' }}>
+                                  {option} {isCorrect && ' (正解)'}
+                                </span>
+                              </div>
+                            )
+                          })}
+                        </div>
+
+                        <div style={{ background: 'var(--bg-primary)', padding: '16px', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '16px', borderLeft: '4px solid var(--color-primary)' }}>
+                          <strong>解説:</strong> {q.explanation}
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                          <button 
+                            className="btn btn-secondary" 
+                            style={{ 
+                              padding: '8px 16px', 
+                              fontSize: '0.85rem', 
+                              borderColor: 'var(--color-success)', 
+                              color: 'var(--color-success)',
+                              background: 'var(--color-success-light)'
+                            }}
+                            onClick={() => handleRemoveFromReview(q.id, q.category)}
+                          >
+                            ✓ 理解した（リストから除外）
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </section>
       )}
     </main>
